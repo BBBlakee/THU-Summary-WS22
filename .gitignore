@@ -12,6 +12,12 @@
 *.cb2
 .*.lb
 
+#User
+ALGO/Vorlesungen
+
+
+
+
 ## Intermediate documents:
 *.dvi
 *.xdv
@@ -25,7 +31,6 @@
 .pdf
 .vscode
 notes
-sources\RNET\summarized
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
 *.bcf
@@ -302,3 +307,4 @@ TSWLatexianTemp*
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
 .DS_Store
+
