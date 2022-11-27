@@ -101,6 +101,69 @@ Ein rekursiver Algorithmus besteht aus einem Basisfall und einem rekursiven Aufr
   \end{lstlisting}
 \section{Korrektheit rekursiver Algorithmen}
 Ein Beweisverfahren ist die Berechnungsinduktion.
-\\\includegraphics[width=0.65\textwidth]{graphics/3-2Korrektheit}
-%4:
+\\\includegraphics[width=0.8\textwidth]{graphics/3-2Korrektheit}
+\section{Rekursive Berechnung der Potenzmenge}
+\textbf{Beispiel:}
+\\Menge: $M =\{a,b,c\}$
+\\Potenzmenge: $\rho (M) = \{ \emptyset, \{a\}, \{b\}, \{c\}, \{a,b\}, \{a,c\}, \{b,c\}, \{a,b,c\} \}$
+\subsection{Rekursiver Lösungsansatz}
+a) in welchen einfach Fällen kann die Lösung direkt angegeben werden?
+\\\tab der einfachste Fall ist die leere Menge $M = \emptyset$
+\\\tab die leere Menge hat nur sich als Teilmenge $\rho(\emptyset) = \{\emptyset\}$
+\\b) Wie können in nicht einfachen Fällen die Teilmengen bestimmt werden?
+\\\tab Sei Menge $M = \{a_1,\ldots,a_{n-1},a_n\}$ nicht leer $(n\geq1)$
+\begin{itemize}
+  \item [1.] Wir wählen ein Element der Menge, z.B. $a_n$
+  \item [2.] Es gibt nun zwei Arten von Teilmengen:
+  \begin{itemize}
+    \item [$T^+$] Teilmengen, die das Element $a_n$ enthalten
+    \item [$T^-$] Teilmengen, die das Element $a_n$ nicht enthalten
+  \end{itemize}
+  Die Menge aller Teilmengen ist die Vereinigung von $T^+$ und $T^-$, d.h. $\rho(M) = T^+ \cup T^-$
+  \\Die Menge $T^+$ kann nun rekursiv berechnet werden, indem wir $a_n$ aus $M$ entfernen und die Potenzmenge von $M$ berechnen.
+  \\Die Menge $T^-$ ist die Potenzmenge von $M$ ohne $a_n$.
+  \\Die Potenzmenge von $M$ ist also die Vereinigung von $T^+$ und $T^-$.
+\end{itemize}
+\textbf{Beispiel:} Wenn $M = \{a,b,c\}$
+\\\tab Wähle z.B. c als Element:
+\\\tab $T^-$: alle Teilmengen ohne c, also alle Teilmengen von $\{a,b\}$
+\\\tab\tab $T^- =\{\emptyset,\{a\},\{b\},\{a,b\}\}$
+\\\tab $T^+$: alle Teilmengen mit c, Nimm zu jeder Teilmenge von $T^-$ und füge c hinzu
+\\\tab\tab $T^+ = \{\{c\},\{a,c\},\{b,c\},\{a,b,c\}\}$
+\\\tab Insgesamt: $\rho(\{M\}) = T^+ \cup T^- =\{\emptyset,\{a\},\{b\},\{a,b\},\{c\},\{a,c\},\{b,c\},\{a,b,c\}\}$
+\subsection{Algorithmischer Ansatz}
+\textbf{Falls M leer} ($M = \emptyset$)
+\\\tab leere Menge ist die einzige Teilmenge
+\\\textbf{Falls M nicht leer} Wähle ein Element $a_n$ aus $M$
+\\\tab Berechne Sammlung $T^-$ aller Teilmengen von M ohne $a_n$ (rekursiv)
+\\\tab Berechne Sammlung $T^+$ aller Teilmengen, die $a_n$ enthalten:
+\\\tab Nimm dazu jede Menge aus $T^-$ und bilde eine neue Menge, indem $a_n$ hinzugefügt wird
+\\\tab Die Menge aller Teilmengen ist die Vereinigung von $T^+$ und $T^-$
+\\\begin{lstlisting}
+private static <E> Set<Set<E>> allSubsets(E[] arr,int maxIndex) {
+Set<Set<E>> resultSet = new HashSet<Set<E>>();
+if (maxIndex >= 0) {
+  // Menge ist nicht leer, waehle letzes Element im gegebenen Bereich
+E selected = arr[maxIndex];
+  // Bilde rekursive alle Teilmengen ohne selected
+Set<Set<E>> resultSet1 = allSubsets(arr, maxIndex - 1);
+  // nimm jede dieser Mengen zum Ergebnis hinzu
+resultSet.addAll(resultSet1);
+  // bilde alle Teilmengen, die selected enthalten
+for (Set<E> set1 : resultSet1) {
+  // Erzeuge Kopie der Menge aus resultSet1 und nimm gewaehltes Element dazu
+Set<E> set2 = new HashSet<E>(set1);
+set2.add(selected);
+  // fuege die ergaenzte Kopie zum Ergebnis hinzu
+resultSet.add(set2);
+}
+} else {
+  // Menge ist leer. Leere Menge hat nur leere Menge als einzige Teilmenge
+Set<E> emptySet = new HashSet<>();
+resultSet.add(emptySet);
+}
+return resultSet;
+}
+\end{lstlisting}
+\section{Algorithmenprinzip ''Backtracking''}
 \end{document}
