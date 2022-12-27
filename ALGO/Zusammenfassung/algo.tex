@@ -261,4 +261,37 @@ private String searchBinRek(String sname, int from, int to){
 \end{lstlisting}
 
 \chapter{Sortierverfahren}
+\section{Vergleichsbasierte Sortierverfahren}
+\textbf{Interne und Externe Sortierverfahren}
+\begin{itemize}
+  \item \textbf{Interne Sortierverfahren:} alle Datensätze passen in den Hauptspeicher.
+  \item \textbf{Externe Sortierverfahren:} nur ein Teil der Datensätze passt in den Hauptspeicher.
+\end{itemize}
+Eine Ordnungsrelation heißt \textbf{total} wenn sie
+\begin{itemize}
+  \item die Eigenschaften einer Halbordnung erfüllt (reflexiv, transitiv, antisymmetrisch)
+  \begin{itemize}
+    \item reflexiv: $a \leq a$
+    \item transitiv: $a \leq b$ und $b \leq c$ $\Rightarrow$ $a \leq c$
+    \item antisymmetrisch: $a \leq b$ und $b \leq a$ $\Rightarrow$ $a = b$
+  \end{itemize}
+  \item und alle Werte miteinander vergleichbar sind.
+\end{itemize}
+\textbf{Vergleiche über Interface Comparable}
+\begin{lstlisting}[language=Java]
+public interface Comparable {
+  int compareTo(Object o) throws ClassCastException;
+}
+\end{lstlisting}
+wenn $x < y$ dann $x.compareTo(y) < 0$
+\\wenn $x = y$ dann $x.compareTo(y) = 0$
+\\wenn $x > y$ dann $x.compareTo(y) > 0$
+\subsection{Laufzeitkomplexität von Selection-Sort}
+\includegraphics[width=0.65\textwidth]{graphics/Selectionsort}
+\\\textbf{Worst Case = Best Case = Average Case:} $O(n^2)$
+\subsection{Laufzeitkomplexität von Bubble-Sort}
+\textbf{Best Case:} $O(n)$ - Daten sind schon aufsteigend sortiert
+\\\textbf{Worst Case:} $O(n^2)$ - Daten sind absteigend sortiert
+\\\textbf{Average Case:} $O(n^2)$
+%start Lektion 8
 \end{document}
