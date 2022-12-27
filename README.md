@@ -3,7 +3,7 @@
 
 ### Progress:
 
-[Algortihmen und Datenstrukturen](ALGO/Zusammenfassung/) (in progress)  
+- **[Algortihmen und Datenstrukturen](ALGO/Zusammenfassung/)** (in progress)  
 
 
 
