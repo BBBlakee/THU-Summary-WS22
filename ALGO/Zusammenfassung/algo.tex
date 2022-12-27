@@ -166,4 +166,99 @@ return resultSet;
 }
 \end{lstlisting}
 \section{Algorithmenprinzip ''Backtracking''}
+\subsection{Grundidee ''Trial and Error''} 
+\begin{itemize}
+  \item [1.] Versuche eine Lösung zu finden
+  \item [2.] Wenn die Lösung nicht passt, versuche eine andere Lösung
+  \item [3.] Wenn keine Lösung passt, gehe zurück und versuche eine andere Lösung
+\end{itemize}
+
+\chapter{Analyse von Algorithmen}
+\section{Korrektheit}
+\subsection{Insertionsort}
+\begin{itemize}
+  \item Am Anfang des Arrays wird ein sortierter Bereich aufgebaut, in den nach und nach die folgenden Elemente 
+  eingefügt werden (deshalb ''Insertionsort'').
+  \item Am Anfang besteh der sortierte Bereich nur aus dem ersten Element $arr[0]$.
+  \item In jedem Schritt wird ein Element $arr[i]$ aus dem unsortierten Bereich in den sortierten Bereich eingefügt.
+  \item Wenn alle Elemente eingefügt wurden, ist das Array sortiert.
+\end{itemize}
+\includegraphics[width=0.65\textwidth]{graphics/insertionsort}
+\\\textbf{Definition:}
+\\ Enthält ein Array arr am Anfang die n Elemente $arr[0],arr[1],\dots,arr[n-1]$, so ist das Array sortiert, wenn gilt:
+\begin{itemize}
+  \item \textbf{Permutationen:} Die Elemente von arr sind eine Permutattion (Umordnung) der ursprünglichen 
+  Elemente von $[0,n-1]$.
+  \item \textbf{Monotonie:} Die Elemente von arr sind monoton steigend/fallend sortiert.
+\end{itemize}
+Mit \textbf{sortiert} ist sofern nicht anders angegeben immer \textbf{aufsteigend sortiert} gemeint.
+\section{Komplexität von Algorithmen}
+Komplexität bezeichnet den Ressourcenverbrauch von Algorithmen. Ressourcen sind dabei die Ausführungszeit und der Speicherbedarf.
+\\Der Ressourcenbedarf hängt von mehreren Faktoren ab:
+\begin{itemize}
+  \item Umfang der Daten (Größe des Problems)
+  \item Zusammensetzung der Daten (aktuelle Sortierung der Daten)
+  \item Ausführungsgeschwindigkeit und Speicherbedarf bei der Ausführung
+\end{itemize}
+\subsection{Vorgehen bei der Laufzeitanalyse}
+\begin{itemize}
+  \item Bestimme für jede Anweisung $A_j$ des Programms die Häufigkeit $k_j$ der Ausführung.
+  \item Die Gesamtkosten bei Problemgröße $n$ können dann so zusammengezählt werden:
+  $T(n) = \sum_{A_j}^n k_j \cdot c_j$
+  \\wobei $k_j$ die Häufigkeit für die Ausführung von Anweisung $A_j$ ist
+  \\und $c_j$ die Einzel-Ausführungszeit für $A_j$ ist.
+\end{itemize}
+\subsection{Abhängigkeit von der Datenzusammensetzung}
+\textbf{Best Case:} basiert auf Daten, die im Algorithmus eine minimale Anzahl von Schritten erfordern.
+\\\textbf{Worst Case:} basiert auf Daten, die im Algorithmus eine maximale Anzahl von Schritten erfordern.
+\\\textbf{Average Case:} basiert auf Daten, die im Algorithmus eine durchschnittliche Anzahl von Schritten erfordern.
+\\\includegraphics[width=0.65\textwidth]{graphics/Laufzeit}
+\subsection{Häufig verwendete Größenordnungen}
+\begin{itemize}
+  \item $O (1)$: Konstante Laufzeit - elementare Operationen
+  \item $O (\log n)$: Logarithmische Laufzeit - binäre Suche
+  \item $O (n)$: Lineare Laufzeit - lineare Suche
+  \item $O (n \log n)$: Logarithmische Laufzeit - schnelle Sortieralgorithmen
+  \item $O (n^2)$: Quadratische Laufzeit - einfache Sortieralgorithmen
+  \item $O (n^3)$: Kubische Laufzeit
+  \item $O (c^n)$: Exponentielle Laufzeit
+  \item $O (n!)$: Permutationen berechnen
+\end{itemize}
+\section{Komplexitätsanalyse wohlstrukturierter Algorithmen}
+Unter wohlstrukturierten Algorithmen versteht man solche, die nur mit Hilfe von Sequenz (nacheinander ausführen),
+Alternative (Fallunterscheidung) und Iteration (Schleife) definiert sind.
+\subsection{Lineare Suche}
+Bei der linearen Suche wird ein Array von links nach rechts durchsucht, bis das gesuchte Element gefunden wurde.
+\\\begin{lstlisting}[language=Java]
+public String sucheNummer(String suchname) {
+  for (int i = 0; i < anzahl; i++) {
+    if (liste[i].name.equals(suchname))
+    return liste[i].nummer;} // gefunden
+return null;} // nicht gefunden
+\end{lstlisting}
+\subsection{Binäre Suche}
+Bei sortierten Daten kann der Bereich, in dem der gesuchte Schlüssel liegen kann, nach und nach immer wieder 
+halbiert werden. Dieses Verfahren wird \textbf{binäre Suche} genannt.
+\\\begin{lstlisting}[language=Java]
+private String searchBinRek(String sname, int from, int to){
+  if (to < from) {
+    return null; //leerer Suchbereich, nichts gefunden
+  } else {
+  // Mitte des Suchbereichs berechnen
+  int middle = (from + to) / 2;
+  // Element in der Mitte vergleichen
+  int res = suchname.compareTo(liste[middle].name);
+    if (res < 0) {
+    // in unterer Haelfte weitersuchen
+    return searchBinRek(sname, from, middle-1);
+    } else if (res > 0) {
+    // in oberer Haelfte weitersuchen
+    return searchBinRek(sname, middle+1, to);
+    } else // (res == 0) {
+    // Schluessel gefunden
+  return liste[middle].number;
+}}}
+\end{lstlisting}
+
+\chapter{Sortierverfahren}
 \end{document}
