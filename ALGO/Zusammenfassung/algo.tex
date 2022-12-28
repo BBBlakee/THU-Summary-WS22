@@ -3,7 +3,6 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{amstext}
-\usepackage{hyperref}
 \usepackage{amsfonts}
 \usepackage{tabularx}
 \usepackage{multirow}
@@ -36,14 +35,9 @@
   tabsize=3
 }
 
-\hypersetup{
-  colorlinks=false,
-  linkbordercolor=blue,
-  pdfborderstyle={/S/U/W 0}
-}
+
 \title{\textbf{Algorithmen und Datenstrukturen}}
-\author{\href{https://github.com/bircni}{\color{blue}github/bircni}}
-%\date{\href{https://ko-fi.com/toiletcoders}{\color{black}little donation}}
+\author{}
 \begin{document}
 \pagenumbering{gobble}
 \maketitle
@@ -52,7 +46,6 @@
 %\renewcommand{\cftdot}{}
 \setcounter{tocdepth}{1}
 \tableofcontents
-\addtocontents{toc}{~\hfill\textbf{Seite}\par}
 \pagebreak
 %\pagenumbering{arabic}
 \chapter{Mathematische Grundlagen}
@@ -107,10 +100,10 @@ Ein Beweisverfahren ist die Berechnungsinduktion.
 \\Menge: $M =\{a,b,c\}$
 \\Potenzmenge: $\rho (M) = \{ \emptyset, \{a\}, \{b\}, \{c\}, \{a,b\}, \{a,c\}, \{b,c\}, \{a,b,c\} \}$
 \subsection{Rekursiver Lösungsansatz}
-a) in welchen einfach Fällen kann die Lösung direkt angegeben werden?
+a. in welchen einfach Fällen kann die Lösung direkt angegeben werden?
 \\\tab der einfachste Fall ist die leere Menge $M = \emptyset$
 \\\tab die leere Menge hat nur sich als Teilmenge $\rho(\emptyset) = \{\emptyset\}$
-\\b) Wie können in nicht einfachen Fällen die Teilmengen bestimmt werden?
+\\b. Wie können in nicht einfachen Fällen die Teilmengen bestimmt werden?
 \\\tab Sei Menge $M = \{a_1,\ldots,a_{n-1},a_n\}$ nicht leer $(n\geq1)$
 \begin{itemize}
   \item [1.] Wir wählen ein Element der Menge, z.B. $a_n$
@@ -293,5 +286,29 @@ wenn $x < y$ dann $x.compareTo(y) < 0$
 \textbf{Best Case:} $O(n)$ - Daten sind schon aufsteigend sortiert
 \\\textbf{Worst Case:} $O(n^2)$ - Daten sind absteigend sortiert
 \\\textbf{Average Case:} $O(n^2)$
-%start Lektion Nr8
+\section{Heapsort}
+\subsection{Binäre Maximum-Heaps}
+Ein \textbf{Maximum-Heap} ist ein binärer Baum, der folgende Eigenschaften erfüllt:
+\begin{itemize}
+  \item Der Baum ist fast vollständig - alle Ebenen bis auf die letzte sind vollständig.
+  \item Für jeden Knoten gilt, dass der Schlüssel des Knotens größer oder gleich dem Schlüssel der Kinder ist.
+\end{itemize}
+\includegraphics[width=0.65\textwidth]{graphics/maximum-heap.jpg}
+\\\textbf{Speicherung eines fast vollständigen Baumes in einem Array:}
+\\Die Wurzel wird an Index 0 abgelegt
+\\Hat ein Knoten den Index $i$, so sind die Kinder an den Indizes $2i+1$ und $2i+2$ abgelegt.
+\subsection{Soriteren mittels Heap}
+Grundprinzip von Heapsort:
+\\1. Heap aufbauen: Array wird in einen Maximum-Heap umgewandelt.
+\\2. Heap abbauen, sortierten Bereich aufbauen:
+\begin{itemize}
+  \item Vertausche Wurzel a[0] und a[k], Maximum ist nun am Ende des Arrays.
+  \item Heap-Eigenschaft wiederherstellen: Wurzel a[0] nach unten schieben, bis Heap-Eigenschaft 
+  wiederhergestellt ist.
+\end{itemize}
+\subsection{Laufzeitkomplexität von Heapsort}
+\textbf{Laufzeitkomplexität für Operation ''versenken'' (sink):} $O(\log n)$
+\\\textbf{Laufzeitkomplexität für Operation ''erstelleMaxHeap'' (createMaxHeap):} $O(n \log n)$
+\\\textbf{Laufzeitkomplexität für Heapsort:} $O(n \log n)$
+%Lektion 9:
 \end{document}
