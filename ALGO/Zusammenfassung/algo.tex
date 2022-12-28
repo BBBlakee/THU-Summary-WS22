@@ -293,7 +293,7 @@ Ein \textbf{Maximum-Heap} ist ein binärer Baum, der folgende Eigenschaften erf�
   \item Der Baum ist fast vollständig - alle Ebenen bis auf die letzte sind vollständig.
   \item Für jeden Knoten gilt, dass der Schlüssel des Knotens größer oder gleich dem Schlüssel der Kinder ist.
 \end{itemize}
-\includegraphics[width=0.65\textwidth]{graphics/maximum-heap.jpg}
+\includegraphics[width=0.65\textwidth]{graphics/maximum-heap}
 \\\textbf{Speicherung eines fast vollständigen Baumes in einem Array:}
 \\Die Wurzel wird an Index 0 abgelegt
 \\Hat ein Knoten den Index $i$, so sind die Kinder an den Indizes $2i+1$ und $2i+2$ abgelegt.
@@ -307,8 +307,19 @@ Grundprinzip von Heapsort:
   wiederhergestellt ist.
 \end{itemize}
 \subsection{Laufzeitkomplexität von Heapsort}
-\textbf{Laufzeitkomplexität für Operation ''versenken'' (sink):} $O(\log n)$
-\\\textbf{Laufzeitkomplexität für Operation ''erstelleMaxHeap'' (createMaxHeap):} $O(n \log n)$
-\\\textbf{Laufzeitkomplexität für Heapsort:} $O(n \log n)$
-%Lektion 9:
+\textbf{''versenken'' (sink):} $O(\log n)$
+\\\textbf{''erstelleMaxHeap'' (createMaxHeap):} $O(n \log n)$
+\\\textbf{Heapsort:} $O(n \log n)$
+\section{Rekursives Sortieren nach ''Teile und Herrsche''}
+1. \textbf{Divide}: Besteht die Datenmenge aus mehr als einem Element, so wird sie in zwei Teilmengen zerlegt.
+\\2. \textbf{Conquer}: Die Teilmengen werden rekursiv sortiert.
+\\3. \textbf{Combine}: Die Teilmengen werden zusammengeführt.
+\\\includegraphics[width=0.65\textwidth]{graphics/sort-table}
+\section{Quicksort}
+\includegraphics[width=0.65\textwidth]{graphics/Quicksort}
+\subsection{Laufzeitkomplexität von Quicksort}
+\textbf{Worst Case:} $O(n^2)$
+\\\textbf{Best Case:} $O(n \log n)$
+\\\textbf{Average Case:} $O(n \log n)$
+%Lektion 10
 \end{document}
