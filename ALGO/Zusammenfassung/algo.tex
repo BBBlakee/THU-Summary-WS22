@@ -321,5 +321,69 @@ Grundprinzip von Heapsort:
 \textbf{Worst Case:} $O(n^2)$
 \\\textbf{Best Case:} $O(n \log n)$
 \\\textbf{Average Case:} $O(n \log n)$
-%Lektion 10
+\section{Mergesort}
+\includegraphics[width=0.65\textwidth]{graphics/Mergesort}
+\\\begin{lstlisting}[language=Java]
+void mergesort(double[] a, int von, int bis) {
+  if (bis - von > 0) {
+  //Mehr als ein Element zu sortieren
+  //Daten in zwei Haelften aufteilen
+  int mitte = (von + bis) / 2;
+  //linke und rechte Haelfte sortieren
+  mergesort(a, von, mitte);
+  mergesort(a, mitte+1, bis);
+  // Sortierte Teilfolgen a[von..mitte] und
+  // a[mitte+1..bis] miteinender verschmelzen
+  merge(a, von, mitte, bis);
+  }
+}
+\end{lstlisting}
+\subsection{merge - Verschmelzen sortierter Teilfolgen}
+\begin{lstlisting}[language=Java]
+void merge(double[] a, int links, int mitte, int rechts) {
+  //Kopie der linken Haelfte a[links..mitte] erzeugen
+  double[] tmpLinks = new double[mitte - links + 1];
+  for (int i = 0; i < tmpLinks.length; i++) {
+    tmpLinks[i] = a[links + i];
+  }
+  // Inhalt von tmpLinks (linker Teil) und a[mitte+1 .. rechts] zu
+  // sortierter Gesamtfolge im Ergebnisbereich a[links..rechts] verschmelzen
+  int indexLinks = 0;
+  int indexRechts = mitte+1;
+  int indexErgebnis = links;
+  while (indexLinks < tmpLinks.length && indexRechts <= rechts) {
+    // linke und rechte Teilfolge enthalten noch Elemente
+    // nimm kleineren Wert von beiden Teilfolgen als naechsten Wert
+    if (tmpLinks[indexLinks] <= a[indexRechts]) {
+      a[indexErgebnis] = tmpLinks[indexLinks];
+      indexLinks++;
+    } else {
+      a[indexErgebnis] = a[indexRechts];
+      indexRechts++;
+      }
+    indexErgebnis++;
+  }
+  // falls nur noch linke Teilfolge Werte enthaelt (rechte Teilfolge aufgebraucht),
+  // uebertrage sie in das Ergebnis
+  while (indexLinks < tmpLinks.length) {
+    a[indexErgebnis] = tmpLinks[indexLinks];
+    indexErgebnis++;
+    indexLinks++;
+  }
+  // falls linke Teilfolge abgearbeitet ist und nur noch rechte Teilfolge Werte
+  // enthaelt, stehen diese schon richtig im Ergebnisfeld a und muessen nicht
+  // mehr behandelt werden
+}
+\end{lstlisting}
+\subsection{Laufzeitkomplexität von Mergesort}
+\textbf{Worst Case = Best Case = Average Case:} $O(n \log n)$
+\section{Eigenschaften der Sortierverfahren}
+\textbf{Stabile Sortierverfahren:} Ein Sortierverfahren heißt stabil, wenn die relative Reihenfolge von Elementen,
+deren Schlüssel gleich sind, während des Sortiervorgangs beibehalten wird wird.
+\\Bubble-Sort, Insertion-Sort, Mergesort sind stabile Sortierverfahren.
+\\Quicksort, Heapsort sind instabile Sortierverfahren.
+\\Selectionsort ist ein instabiles Sortierverfahren, das aber stabil gemacht werden kann.
+\\(für Arrays instabil -> für Listen stabil)
+\subsection{Zusammenfassung der Sortierverfahren}
+\includegraphics[width=0.65\textwidth]{graphics/sortierverfahren-table}
 \end{document}
