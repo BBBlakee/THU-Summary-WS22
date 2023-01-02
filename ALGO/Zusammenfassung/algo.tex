@@ -404,5 +404,20 @@ $O(n \log n)$ Schlüsselvergleiche.
 \\\textbf{Laufzeitkomplexität:} 
 \\\textbf{Best Case = Average Case:} $O(n)$
 \\\textbf{Worst Case} $O(n^2)$
-%RadixSort
+\subsection{Radix-Sort}
+Wiederhole für jede Stelle p der insgesamt d Stellen, von der niederwertigsten
+Stelle rechts bis zur höchstwertigen Stelle links jeweils folgende Partitioniserungs-
+und Sammelphase
+\\(1) Partitionierungsphase: Gehe die Wertefolge durch und ordne sie
+entsprechend dem Zeichen an der Stelle p in das zugehörige Fach ein.
+\\wichtig: neue Elemente werden hinten an die Fachliste angehängt!
+\\(2) Sammelphase: Die Einträge aus den Fächern aufsammeln und wieder in
+eine lineare Folge bringen
+\\- bei Fach mit niedrigstem Wert beginnen
+\\- die im Fach vorgegebene Reihenfolge muss beibehalten werden
+\\Diese Folge wird dann beim nächsten Durchgang für die Partitionierung
+verwendet.
+\\Nach d Durchgängen durch alle Stellen sind die Daten richtig sortiert.
+\\\textbf{Laufzeitkomplexität:}
+\\Best Case = Worst Case = Average Case: $O(d \cdot n) = O(n)$
 \end{document}
