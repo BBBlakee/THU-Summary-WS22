@@ -420,4 +420,40 @@ verwendet.
 \\Nach d Durchgängen durch alle Stellen sind die Daten richtig sortiert.
 \\\textbf{Laufzeitkomplexität:}
 \\Best Case = Worst Case = Average Case: $O(d \cdot n) = O(n)$
+
+\chapter{Einfache Datenstrukturen}
+\section{Abstrakte und konkrete Datenstrukturen}
+\textbf{Abstrakte Datentypen (ADT):}
+\\Ein ADT definiert eine Datenstruktur unabhängig von ihrer konkreten Implementierung.
+\\\textbf{Konkrete Datenstrukturen:}
+\\Ein konkreter Datentyp ist die Implementierung eines ADT.
+\section{Abstrakter Datentyp Stack}
+\textbf{Stack:} Eine Sammlung von Elementen, die nach dem LIFO-Prinzip (Last In First Out) verwaltet wird.
+\\\begin{lstlisting}[language=Java]
+public interface Stack {
+  void push(Object elem); // Element oben auf dem Stack ablegen
+  Object pop() throws EmptyStackError;
+  // oberstes Element des Stacks entnehmen und zurueckgeben
+  boolean isEmpty(); // prueft, ob Stack leer ist
+}
+\end{lstlisting}
+\section{Konkreter Datentyp ArrayStack}
+Bei Stacks kann man noch zwei Varianten unterscheiden:
+\\ob sie eine begrenzte Kapazität haben oder sie unbeschränkt wachsen können.
+\\\textbf{Laufzeitkomplexität für ArrayStack mit begrenzter Kapazität:} $O(1)$
+\section{Amortisierte Laufzeitanalyse}
+Die Laufzeit eines Algorithmus wird über mehrere Operationen hinweg betrachtet.
+\section{Abstrakter Datentyp Warteschlange}
+Eine Queue ist eine Sammlung von Elementen, die nach dem FIFO-Prinzip (First In First Out) verwaltet wird.
+\\\begin{lstlisting}[language=Java]
+public interface Queue {
+  void enqueue(Object elem); // fuege Element vorne ein
+  Object dequeue() throws EmptyQueueError;
+  // entnimmt Element hinten
+  boolean isEmpty(); // pruefen, ob Wartschlange leer ist
+}
+\end{lstlisting}
+\section{Konkreter Datentyp Ringpuffer}
+\includegraphics[width=0.65\textwidth]{graphics/Ringpuffer}
+\\\textbf{Laufzeitkomplexität:} $O(1)$S
 \end{document}
