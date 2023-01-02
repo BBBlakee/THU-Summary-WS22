@@ -386,4 +386,23 @@ deren Schlüssel gleich sind, während des Sortiervorgangs beibehalten wird wird
 \\(für Arrays instabil -> für Listen stabil)
 \subsection{Zusammenfassung der Sortierverfahren}
 \includegraphics[width=0.65\textwidth]{graphics/sortierverfahren-table}
+\section{Nicht-vergleichsbasierte Sortierverfahren}
+Jedes vergleichsbasierte Sortierverfahren benötigt zum Sortieren von n
+verschiedenen Schlüsseln im schlechtesten Fall (und auch im mittleren Fall)
+$O(n \log n)$ Schlüsselvergleiche.
+\subsection{Eigenschaften eines Entscheidungsbaums}
+\begin{itemize}
+  \item Ein Binärbaum repräsentiert die beim Suchen durchgeführten Vergleiche.
+  \item Wurzelknoten repräsentiert den ersten Vergleich.
+  \item Verzweigung nach links repräsentiert den Fall, dass der Vergleich wahr ist.
+  \item Der Worst-Case ist der Pfad mit der größten Tiefe.
+\end{itemize}
+\subsection{Bucket-Sort}
+\textbf{Idee:} Die Elemente werden in Buckets sortiert, die jeweils einen Bereich von Schlüsseln repräsentieren.
+\\Die Buckets werden dann einzeln sortiert und anschließend zusammengeführt.
+\\\includegraphics[width=0.65\textwidth]{graphics/Bucketsort}
+\\\textbf{Laufzeitkomplexität:} 
+\\\textbf{Best Case = Average Case:} $O(n)$
+\\\textbf{Worst Case} $O(n^2)$
+%RadixSort
 \end{document}
