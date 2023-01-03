@@ -182,14 +182,64 @@ int main() {
 **Deallocation** ``delete ptr;``  
 **Allocate N data element** ``TYPE* ptr = new TYPE[N];``  
 **Access** ``ptr[i]``  
-**Deallocate** ``delete[] ptr;``
+**Deallocate** ``delete[] ptr;``  
 **Dangling pointer** is a pointer, which points to a deallocated memory location.
 
 
 ### I/O
 
-**Open a file** ``std::ifstream``
-**Read from a file** ``std::getline(std::cin, line);``
+**Open a file** ``std::ifstream``  
+**Read from a file** ``std::getline(std::cin, line);``  
 **Write to a file** ``std::cout << "Hello World" << std::endl;``
 
+## Classes & Objects
 
+### Classes
+
+- Classes are identified with the keyword ``class`` or ``struct``.
+- Member variables are defined in the class.
+- The constructor has the same name as the class and is called when an object is created.
+- The destructor has the same name as the class following a tilde, has no parameters and is called when an object is destroyed.
+
+```cpp
+class MyClass {
+    public:
+        MyClass(int a, int b);
+        ~MyClass() {}
+        int compete();
+    private:
+        int a, b;
+};
+```
+
+- Access modifiers control how members can be accessed.
+
+  - `public` accessible from everywhere, default for structs
+  - `private`accessible from inside only, default for classes
+  - `protected` accessible from inside and subclasses
+
+### Objects
+
+Syntax: ``ClassName variableName;`` or ``ClassName variableName{...};`` or ``ClassName variableName(...);`` or ``ClassName variableName{};``
+
+### Storage Duration
+
+**Static storage duration** is the lifetime of a variable, which is the whole program.  
+**Automatic storage duration** --> local variables, initialized when entering the scope and destroyed when leaving the scope.  
+**Dynamic storage duration** --> user controlled lifetime, allocated with ``new`` and deallocated with ``delete``.
+
+### Modern Storage Duration
+
+Rule: do not use new/delete in modern C++.  
+
+- ``std::shared_ptr<TYPE>`` is a smart pointer, which manages the lifetime of an object.
+- ``std::unique_ptr<TYPE>`` is a smart pointer, which manages the lifetime of an object and can't be copied/shared.
+- ``std::weak_ptr<TYPE>`` is a smart pointer without ownership - must be converted to a shared_ptr to access the object.
+- No need to delete objects, which are managed by smart pointers.
+
+Rule: use raw pointers with care in modern C++.
+
+- Use **shared_ptr<T>** instead of **T\*** to express shared ownership.
+- Use **unique_ptr<T>** instead of **T\*** to express private ownership.
+- Use **weak_ptr<T>** instead of **T\*** to express no ownership.
+  
