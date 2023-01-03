@@ -243,3 +243,39 @@ Rule: use raw pointers with care in modern C++.
 - Use **unique_ptr<T>** instead of **T\*** to express private ownership.
 - Use **weak_ptr<T>** instead of **T\*** to express no ownership.
   
+![Smart Pointers](./graphics/pointers.jpg)
+
+### Inline Functions
+
+Implicit inline member functions are functions, which are defined in the class declaration.  
+Explicit inline (member) functions start their definition with the keyword ``inline``.  
+constexpr functions are implicitly inline.
+
+### Const Methods
+
+Syntax: add ``const`` after the parameter list.  
+Compiler guarantees that the method does not modify the object.
+In a const context the compiler only allows const access.  
+``const`` allows to control whether a function is allowed to be called or not in a given context.
+
+### Constexpr Functions
+
+Syntax: add ``constexpr`` in front of the function name.  
+Semantic:  
+constexpr functions are enabled to be used in constexpr expressions.  
+constexpr functions may only use restricted language features.  
+Notes:  
+constexpr constructors are possible  
+a constexpr function can be called at compile time or at runtime
+
+### Static Members
+
+Syntax: add ``static`` in front of the member declaration.  
+They exist once per class and have static storage duration. - Definition and initialization happens outside the class
+
+### Unions
+
+Unions are data structures, which can store different types of data in the same memory location.  
+Unions can only store one attribute at a time.
+The programmer is responsible for managing what attribute is stored in the union.  
+``std::variant`` are modern unions and manage themselves what attribute is stored.
