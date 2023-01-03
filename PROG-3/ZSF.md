@@ -160,13 +160,13 @@ int main() {
 - Accessing a reference is the same as accessing the original value
 - References can't be null
 
-#### C-Strings
+#### C-Strings  
 
 - C-Strings are arrays of characters,
 - ``const TYPE* ptr``is a pointer to a const TYPE
 - ``TYPE* const ptr``is a const pointer to a TYPE
 
-#### Different function parameters
+#### Different function parameters  
 
 **Pass by value** ``func (TYPE value)`` --> copy value (input, small TYPES)  
 **Pass by reference**:  
