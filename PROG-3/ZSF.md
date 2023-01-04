@@ -365,3 +365,67 @@ Choose copy behavior:
 **Rule of three** add move constructor and move assignment operator and destructor  
 **Rule of five** add move constructor and move assignment operator  
 **Take into account** Manage at most one resource explicitly - better use existing classes
+
+## Templates
+
+### Function templates
+
+A simple function is defined as follows:
+
+```cpp
+template <class T>
+ReturnValue functionName(Parameters) {...}
+```
+
+or
+
+```cpp
+template <typename T>
+ReturnValue functionName(Parameters) {...}
+```
+
+A template defining a maximum-function:
+
+```cpp
+template <class T>
+inline const T& max (const T  &a, const T  &b) {
+    return  a<b ? b:a;
+}
+```
+
+A function template itself needs to be instantiated.  
+It is **implicitely instantiated** when it is used the first time.  
+Alternatively it can be **explicitely instantiated** with the keyword ``template``.
+
+```cpp
+template <class T> const T& max (const T&a, const T&b) {return a<b ? b:a;}
+
+//explicit instantiation
+template const int& max<int>(const int&, const int&);
+
+int main()
+{
+    max(1,2); //implicit instantiation
+}
+```
+
+When using a template, parameters can be deduced implicitly from the passed function argument types or
+explicitely by specifying the desird template arguments after the function call.
+
+```cpp
+template <class T> const T& max (const T&a, const T&b) {return a<b ? b:a;}
+int main(){
+    max(1.0,2.0); //max<double via deduction>
+    max(1,2); //max<int> via deduction
+    max<>(1,2); //max<int> via deduction
+    max<double>(1,2); //explicit template parameter specification
+}
+```
+
+Attention: Only works in unambiguous cases.  
+``max(float, double)`` and ``max(double, float)`` are ambiguous.  
+If ambiguos you can explicitly specify the template arguments or disambiguate the parameters using a cast.  
+``max<float>(double,float)`` --> float  
+``max(double, static_cast<double>(float))`` --> double
+
+### Class templates
