@@ -505,3 +505,16 @@ int main(){
 
 ### Depoly a template library
 
+**Inclusion model:** (standard library)
+
+- Deliver all library source code to customer (header files)
+- Support unknown types (template instantiation is implicit)
+
+**Explicit instantiation model:**
+
+- Deliver template declarations only to customer (header files)
+- Support foreseen types only (explicit template instantiation)
+
+**C++ 20 modules:**
+
+- Allows to deliver a kind of "precompiled templates"
