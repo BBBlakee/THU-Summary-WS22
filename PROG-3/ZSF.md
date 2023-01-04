@@ -279,3 +279,89 @@ Unions are data structures, which can store different types of data in the same 
 Unions can only store one attribute at a time.
 The programmer is responsible for managing what attribute is stored in the union.  
 ``std::variant`` are modern unions and manage themselves what attribute is stored.
+
+### Constructors & Destructors
+
+#### Default Constructor
+
+- Default constructor is a constructor, which has no parameters.
+- Implicit default constructor is generated, if no constructor is defined.
+- Can be requested with ``=default``.
+
+#### Initialization of composed objects
+
+All member variables are initialized in the order of declaration.  
+The constructor definition is called *after* the initialization of the member variables.
+
+#### Default member initializer
+
+Defaultmember initializer is a default value for a member variable, which is used if no value is provided in the constructor.  
+Zero initialization is specified with an assignment of ``{}``.  
+If no default member initializer is specified, the member variable is default initialized.
+
+- class/struct type members are default constructed
+- non-class type members get undeterminate values
+
+#### Member initializer
+
+Member initializer is a constructor, which initializes the member variables with the provided values.
+
+### Copying Objects
+
+#### Copy Constructor & Operator
+
+- Copy constructor is a constructor, which takes a reference to the same class as parameter.
+- Copy initialization is performed when, creating a new object, the source object is a value.
+- Copy assignment is performed when, assigning a value to an existing object, the source object is a value.
+
+Copying takes a const reference to the object to be copied from, because the object to be copied from shall
+never be changed by the act of copying.  
+You can delete the copy constructor and copy assignment operator with ``=delete``.  
+
+### Moving Objects
+
+Lvalue references can be used to alias an existing object.  
+Syntax: ``TYPE %ref;`` --> "Things with a name"  
+Rvalue references may extend the lifetime of temporary objects.  
+Syntax: ``TYPE &&ref;`` --> "Things without a name" (references to a return value)
+
+```cpp
+#include <iostream>
+int f(int x) {return 3*x;}
+void g(int &x) {std::cout << "lvalue" << x << "\n";}
+void g(int &&x) {std::cout << "rvalue" << x << "\n";}
+
+int main() {
+    int x = 2;
+    g(x); // lvalue --> x has a name
+    g(3); // rvalue --> "3" has no name
+    g(f(x)); // rvalue --> return value of f(x) has no name
+}
+```
+
+#### Explicit Move
+
+``std::move`` is a cast to an Rvalue.  
+Use case: move a non-copyable object.
+
+- ``TYPE a = std::move(b);`` --> move initializes a with b and leaves b in an unspecified but valid state
+- ``a = std::move(b);`` --> moves b to a and leaves b in an unspecified but valid state
+
+### Rule of zero
+
+If you implement one of the following, also implement the other ones:
+
+- Destructor
+- Copy constructor
+- Assignment operator
+- ("Copy-swap")
+
+Choose copy behavior:
+
+- Default (``=default``) - flat copy
+- Deep copy - copy all members
+- No copy (``=delete``) - no copy allowed
+
+**Rule of three** add move constructor and move assignment operator and destructor  
+**Rule of five** add move constructor and move assignment operator  
+**Take into account** Manage at most one resource explicitly - better use existing classes
