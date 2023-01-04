@@ -458,3 +458,50 @@ template <class T>
 using Text2Value = std::map<std::string, T>;
 ```
 
+### Template parameters
+
+More than one template parameter can be specified.
+
+```cpp
+template <class T1, class T2>
+class className{...};
+```
+
+Template parameters can also be integral types (int) but must be know at compile time.
+
+### Template specialization
+
+- Templates can be specialized for certain types to provide type specific behavior
+- Syntax: ``template <>`` followed by the concrete function/class definition
+
+```cpp
+#include <cstring>
+
+template<class T> T max (T a, T b) {return a<b ? b:a;}
+
+template<> 
+const char* max<const char*>(const char* a, const char* b) {
+    return std::strcmp(a,b) < 0 ? b:a;
+}
+```
+
+- Function template specialization interacts with function overloading
+- More special templated overloads win over less special ones
+- More specializations win over less special specializations
+- Non-templated overloads win over templated overloads
+
+```cpp
+template<class T, class U>  void f(T t, U u) {...} //1
+template<class T>           void f(T t, T u) {...} //2
+template<>                  void f<int>(int t, int u) {...} //3
+                            void f(int t, int u) {...} //4
+int main(){
+    f(1,1.2); //calls 1
+    f(1.2,1); //calls 1
+    f(1.3,1.3); //calls 2
+    f(1,1); //calls 4 -- 3 is more specialized but 4 is not a template
+}
+```
+
+### Depoly a template library
+
