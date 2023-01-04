@@ -429,3 +429,32 @@ If ambiguos you can explicitly specify the template arguments or disambiguate th
 ``max(double, static_cast<double>(float))`` --> double
 
 ### Class templates
+
+A simple class template is defined as follows:
+
+```cpp
+template <class T>
+class className{...};
+```
+
+- Inside the class ``T`` can be used as a type
+- ``className<T>`` denotes an instantiated class template
+- Inside the class declaration, ``className<T>`` and ``className`` are equivalent
+- Instantiation can be implicit or explicit
+- Template argument can be deduced implicitly or explicitely
+
+Templates do not exist as type, they must be instantiated.  
+The compiler generates a new class for each template instantiation.
+
+### Variable & Alias templates
+
+- Syntax: ``using TYPE_NEW_NAME = OTHER_TYPE;``
+- Alternative: ``typedef OTHER_TYPE TYPE_NEW_NAME;``
+- ``using`` can be parameterized with templates
+- ``typedef`` cannot be parameterized with templates
+
+```cpp
+template <class T>
+using Text2Value = std::map<std::string, T>;
+```
+
