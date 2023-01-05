@@ -518,3 +518,122 @@ int main(){
 **C++ 20 modules:**
 
 - Allows to deliver a kind of "precompiled templates"
+
+### Compile time magic with templates
+
+Recursive usage of template instantiations can be used to implement a compile time recursion.  
+Template specialization is used to terminate the recursion.
+
+```cpp
+template <int N> struct SumFrom0toN{
+    static constexpr int value=SumFrom0toN<N-1>::value+N;};
+
+template<> struct SumFrom0toN<0>{
+    static constexpr int value=0;};
+
+int main(){
+    return SumFrom0toN<3>::value; // 0+1+2+3=6
+}
+```
+
+constexpr also allows compile time iterations
+
+```cpp
+constexpr int sum(int N){
+    int res = 0;
+    for(int i=0; i<=N; i++) res+=i;
+    return res;
+}
+
+int main(){
+    constexpr int res = sum(3); // 0+1+2+3=6
+    return res;
+}
+```
+
+``if constexpr(...)`` allows compile time switches
+
+- ``if constexpr`` is evaluated at compile time
+- In a template the discarded if-branch is not instantiated
+
+### Variadic templates
+
+- Variadic templates allow typesafe code with an arbitrary number of arguments
+
+```cpp
+#include <iostream>
+template<class T> void print(T s){
+    std::cout << s << ".";
+}
+template<class> T, class... Rest> void print(T s, Rest... rest){
+    std::cout << s << ",";
+    print(rest...);
+}
+int main(){
+    print("Hello", "World", 1.9, 8); // "Hello,World,1.9,8."
+}
+```
+
+- The template parameters representing a list of type parameters are called **type parameter pack**: ``class... Rest``
+- A function parameter pack is used to declare functions with arguments corresponding to a type parameter 
+pack: ``void f (Rest... params)``
+- pack expansion allows to unpack the function arguments: ``f(params...)``
+
+```cpp
+template<class T> void print(T s){
+    std::cout << s << ".";
+}
+template<class T, class... Rest> void print(T s, Rest... rest){
+    std::cout << s << ",";
+    print(rest...);
+}
+````
+
+#### Examples from the standard library
+
+- ``std::make_shared<TYPE> (Paramters)``: creates ``std::shared_ptr<TYPE>`` and calls ``new TYPE {Parameters}``
+(forwards the constructor arguments to the constructor of ``TYPE``)
+- ``std::make_unique<TYPE> (Paramters)``: creates ``std::shared_ptr<TYPE>``
+- ``std::make_tupls(Paramters)``: creates ``std::tuple<...>``
+
+Fold expressions allows to reduce arguments based on a parameter pack.  
+Syntax:
+
+- ``(pack op ...)``
+- ``(... op pack)``
+- ``(first op ... op pack)``
+- ``(pack op ... op last)``
+
+```cpp
+template<class ...Args>
+int sum_plus_2(Args... args){
+    return (args + ... + (1*2));  //brackets mandatory
+}
+
+int main(){
+    return sum_plus_2(5,4); // 5+4+2=13
+}
+```
+
+### Other template related stuff
+
+- **auto** is used 
+  - to deduce a variable type from an initializer,
+  - to deduce a function return type from a return expression, or
+  - to deduce a (non-type) template parameter type.
+- **decltype** is used to denote the type of a not-evaluated expression
+
+Notes:
+
+- **auto** can be decorated with ``&`` and ``const``
+  - ``auto x = ...`` will always be a normal variable
+  - ``auto x& = ...`` will always be a reference
+  - ``const auto x& = ...`` will always be a const reference
+- **decltype** represents the exact type of the expression passed to it
+
+### Concepts
+
+- Concepts are a way to express requirements on template parameters
+
+## Inheritance
+
