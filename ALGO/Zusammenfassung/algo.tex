@@ -481,4 +481,80 @@ Eine Deque ist eine Warteschlange, bei der an beiden Enden Elemente eingefügt u
   \item Double-Ended-Queues
   \\ insertFirst(v), insertLast(v), removeFirst(), removeLast() - $O(1)$
 \end{itemize}
+
+\chapter{Suchbäume}
+\section{Abstrakte Datentypen Map und Set}
+\subsection{Abstrakter Datentyp Map}
+Ein Map ist eine Sammlung von Schlüssel-Wert-Paaren, die nach den Schlüsseln verwaltet wird.
+\\ Grundoperationen:
+\\ put(k,v) - Einfügen eines Schlüssel-Wert-Paares - v wird unter dem Schlüssel k abgelegt
+\\ get(k) - Rückgabe des Wertes, der unter dem Schlüssel k abgelegt ist
+\\ delete(k) - Entfernen des Schlüssel-Wert-Paares mit Schlüssel k
+\subsection{Abstrakter Datentyp Set}
+Ein Set ist eine Sammlung von Elementen, die nach den Elementen verwaltet wird.
+\\ - Ein Element kann höchstens einmal im Set vorkommen
+\\ Grundoperationen:
+\\ add(x) - Einfügen eines Elements
+\\ remove(x) - Entfernen eines Elements
+\\ contains(x) - Prüfen, ob ein Element im Set enthalten ist
+\\ isEmpty() - Prüfen, ob das Set leer ist
+\\ size - Anzahl der Elemente im Set
+\section{Binäre Bäume}
+\subsection{Implementierung eines binären Baumes}
+\begin{lstlisting}[language=Java]
+public class TreeNode {
+  Object value; // Wert des Knotens
+  TreeNode left, right; // linke und rechte Teilbaeume
+  public TreeNode(Object value, TreeNode left, TreeNode right) {
+    this.value = value;
+    this.left = left;
+    this.right = right;
+  }
+  public TreeNode(Object value) { // erzeugt Blattknoten
+    this(value, null, null);
+  }
+}
+\end{lstlisting}
+\textbf{Traversierung eines binären Baumes:}
+\\ Inorder: links, Wurzel, rechts - sortiert
+\\ Preorder: Wurzel, links, rechts - für Ausdrücke
+\\ Postorder: links, rechts, Wurzel - für Ausdrücke
+\section{Binäre Suchbäume}
+Ein Suchbaum ist ein binärer Baum, bei dem für jeden Knoten p des Baums gilt:
+\\ - Alle Schlüssel im linken Teilbaum von p sind kleiner als der Schlüssel von p
+\\ - Alle Schlüssel im rechten Teilbaum von p sind größer als der Schlüssel von p
+\\\includegraphics[width=0.65\textwidth]{graphics/Suchbaum}
+\subsection{Suchbaum-Operationen}
+\textbf{Rekursive Suche:}
+\begin{lstlisting}
+Suche nach Knoten mit Key k
+- falls Baum leer: Suche fehlgeschlagen
+- falls Baum nicht leer, Wurzel hat Key w:
+  - falls w = k: Suche erfolgreich
+  - falls k < w: Suche im linken Teilbaum
+  - falls k > w: Suche im rechten Teilbaum
+\end{lstlisting}
+\textbf{Einfügen eines Knotens:}
+\begin{lstlisting}
+Einfuegen eines Knotens mit Key k
+- falls Baum leer: neuer Knoten wird Wurzel
+- falls Baum nicht leer, Wurzel hat Key w:
+  - falls k < w: Einfuegen im linken Teilbaum
+  - falls k > w: Einfuegen im rechten Teilbaum
+\end{lstlisting}
+\textbf{Entfernen eines Knotens:}
+\begin{lstlisting}
+Entfernen eines Knotens mit Key k
+- falls Baum leer: Entfernen fehlgeschlagen
+- falls Baum nicht leer, Wurzel hat Key w:
+  - falls w = k: Entfernen erfolgreich
+  - falls k < w: Entfernen im linken Teilbaum
+  - falls k > w: Entfernen im rechten Teilbaum
+\end{lstlisting}
+\subsection{Laufzeitkomplexität von binären Suchbäumen}
+\begin{itemize}
+  \item Suche: $O(\log n)$ - Worst Case: $O(n)$
+  \item Einfügen: $O(\log n)$ - Worst Case: $O(n)$
+  \item Entfernen: $O(\log n)$ - Worst Case: $O(n)$
+\end{itemize}
 \end{document}
