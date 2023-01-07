@@ -463,4 +463,22 @@ Reihenfolge die Elemente entnommen werden.
 \\\textbf{Grundoperationen:}
 \\ insert(x) - Einfügen eines ELements (Schlüssel in x enthalten)
 \\ extractMin() - Rückgabe \& Entfernen des Elements mit kleinstem Schlüssel --> höchste Priorität
+\section{Konkreter Datentyp verkettete Liste}
+Die Datenstruktur, die eine Folge von Einträgen speichert, wird durch einzelne Knotenobjekte realisiert, die
+jeweils über eine Referenz auf einen Nachfolger verweisen. Durch Anhängen,
+Entfernen oder Umhängen einzelner Knotenobjekte kann die Wertefolge dynamisch in
+Umfang und Reihenfolge verändert werden.
+\\ Einfach verkette Liste mit first- und last-Referenz
+\\ Doppelt verkettete Liste mit first- und last-Referenz
+\section{Abstrakter Datentyp Double-Ended-Queue (Deque)}
+Eine Deque ist eine Warteschlange, bei der an beiden Enden Elemente eingefügt und entfernt werden können.
+\section{Zusammenfassung: Anwendung verketter Listen}
+\begin{itemize}
+  \item Stacks
+  \\ push(v), pop() - $O(1)$
+  \item Queues
+  \\ enqueue(v), dequeue() - $O(1)$
+  \item Double-Ended-Queues
+  \\ insertFirst(v), insertLast(v), removeFirst(), removeLast() - $O(1)$
+\end{itemize}
 \end{document}
