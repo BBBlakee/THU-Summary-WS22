@@ -557,4 +557,57 @@ Entfernen eines Knotens mit Key k
   \item Einfügen: $O(\log n)$ - Worst Case: $O(n)$
   \item Entfernen: $O(\log n)$ - Worst Case: $O(n)$
 \end{itemize}
+\section{Grundprizip balancierter Suchbäume}
+Bäume werden durch Rotationen so verändert, dass die Tiefe der Teilbäume möglichst gleich bleibt.
+\section{AVL-Bäume}
+\subsection{Balancefaktor und AVL-Ausgleich}
+\textbf{Balancefaktor:}
+\\\tab $B_x = height(left(x)) - height(right(x))$
+\\ Ein Blatt hat Balancefaktor 0, da die Höhe des linken und rechten Teilbaums gleich ist.
+\\\textbf{AVL-Ausgleich:}
+\\ Ein AVL-Baum ist ein binärer Suchbaum, bei dem für jeden Knoten p gilt:
+\\ - Der Balancefaktor von p ist -1, 0 oder 1
+\\\textbf{Höhe eines AVL-Baums:}
+\\\tab $h = O(\log n)$
+\subsection{Suche in AVL-Bäumen}
+Die Laufzeitkomplexität von AVL-Bäumen ist im Worst und Average Case $O(\log n)$.
+\subsection{Rotationen in Suchbäumen}
+Eine Links- oder Rechtsrotation ist eine Rotation, bei der ein Knoten p um eine Ebene nach links oder rechts verschoben wird.
+\\\includegraphics[width=0.65\textwidth]{graphics/Rotationen}
+\subsection{Einfügen in AVL-Bäumen}
+\begin{lstlisting}
+(1) Suche wie beim Suchbaum die Position k (als Blatt)
+(2) Einfuegen des neuen Knotens k
+(3) Falls Balancefaktor von k ungleich 0:
+  - Falls Balancefaktor von k ungleich Balancefaktor von p:
+    - Falls Balancefaktor von k = -1 und Balancefaktor von p = -1:
+      - Rechtsrotation um p
+    - Falls Balancefaktor von k = 1 und Balancefaktor von p = 1:
+      - Linksrotation um p
+  - Falls Balancefaktor von k gleich Balancefaktor von p:
+    - Falls Balancefaktor von k = -1 und Balancefaktor von p = -1:
+      - Rechtsrotation um p
+      - Linksrotation um q
+    - Falls Balancefaktor von k = 1 und Balancefaktor von p = 1:
+      - Linksrotation um p
+      - Rechtsrotation um q
+\end{lstlisting}
+\subsection{Entfernen in AVL-Bäumen}
+\begin{lstlisting}
+(1) Suche den zu entfernenden Knoten k und merke den Pfad von der Wurzel zu k.
+(2) Falls Knoten k Blatt ist oder nur ein Kind hat:
+        Entferne k wie in einem Suchbaum
+    Falls Knoten k zwei Kinder hat:
+        Suche im linken Baum von k den groessten Knoten l und ersetze k durch l
+(3) Verfolge den Pfad zur Wurzel und aktualisiere die Balancefaktoren und rotiere bei Bedarf
+(4) Wenn AVL-Ausgleich verletzt ist --> Einfach- bzw Doppelrotation
+\end{lstlisting}
+\subsection{Laufzeitkomplexität für AVL-Bäume}
+Worst \& Average Case:
+\begin{itemize}
+  \item Suche: $O(\log n)$
+  \item Einfügen: $O(\log n)$
+  \item Entfernen: $O(\log n)$
+\end{itemize}
+
 \end{document}
