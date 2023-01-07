@@ -609,5 +609,64 @@ Worst \& Average Case:
   \item Einfügen: $O(\log n)$
   \item Entfernen: $O(\log n)$
 \end{itemize}
+\section{B-Bäume}
+Es handelt sich dabei um Mehrwegbäume, bei denen ein einzelner Knoten eine (sortierte) Folge von Schlüsseln
+speichert und es auch entsprechendmehr als zwei Kinder geben kann.
+\subsection{Definition}
+Für einen B-Baum der Ordnung m ($m \geq 2$) gilt:
+\\\textbf{Struktur des Baums:}
+\begin{itemize}
+  \item [(1)] Alle Blätter haben die gleiche Tiefe - Abstand zur Wurzel
+  \item [(2)] Enthält ein innerer Knoten j Schlüssel, dann hat er j+1 Kinder
+  \item [(3)] Jeder Knoten enthält maximal $2m-1$ Schlüssel
+  \item [(4)] Jeder Knoten enthält mindestens $m-1$ Schlüssel
+  \item [(5)] Die Wurzel enthält mindestens einen Schlüssel
+\end{itemize}
+\textbf{Geordnete Speicherung:}
+\\ Enthält ein Knoten die Schlüssel $k_1, k_2, \dots, k_n$, dann gilt:
+\begin{itemize}
+  \item [(6)] Die Schlüssel sind aufsteigend geordnet
+  \item [(7)] Für alle Werte x im ersten Unterbaum des Knotens gilt: $x < k_1$
+  \item [(8)] Sind $k_{j-1}$ und $k_j$ zwei aufeinanderfolgende Schlüssel, dann gilt: $k_{j-1} < x < k_j$
+  \item [(9)] Für alle Werte x im letzten Unterbaum des Knotens gilt: $x > k_j$
+\end{itemize}
+\includegraphics[width=0.65\textwidth]{graphics/B-Baum}
+\subsection{Höhe von B-Bäumen}
+$h \leq [log_m(\frac{n+1}{2})]$
+\subsection{2-3-4 Bäume}
+B-Bäume der Ordnung $m=2$ werden auch 2-3-4 Bäume genannt.
+\begin{itemize}
+  \item Jeder Knoten kann zwei, drei oder vier Nachfolger haben
+  \item Jeder Knoten kann einen, zwei oder drei Schlüssel enthalten
+\end{itemize}
+\subsection{Suche in B-Bäumen}
+\begin{lstlisting}
+- Man beginnt mit dem Wurzelknoten
+- In einem Knoten kann mit bin. Suche nach dem Wert gesucht werden
+- Wenn der Wert gefunden wurde, ist die Suche beendet
+- Wenn der Wert nicht gefunden wurde, wird der entsprechende Unterbaum
+  durchsucht
+- Wenn der Wert nicht gefunden wurde, ist die Suche beendet
+\end{lstlisting}
+\includegraphics[width=0.65\textwidth]{graphics/B-Baum-Suche}
+\subsection{Einfügen in B-Bäumen}
+\begin{lstlisting}
+- Ausgehend von der Wurzel das passende Blatt fuer Key k suchen
+- Neuen Key k an der richtigen Stelle in den Blattknoten einfuegen
+  - Falls Blatt schon voll ist, muss der Knoten aufgeteilt werden
+\end{lstlisting}
+\includegraphics[width=0.65\textwidth]{graphics/Splitten}
+\subsection{Entfernen in B-Bäumen}
+Schlüssel liegt im Blatt:
+\\ Der Schlüssel wird entfernt und der Knoten wird ggf. zusammengeführt.
+\\Schlüssel liegt nicht im Blatt:
+\\ Der Schlüssel wird durch seinen direkten Vorgänger (Maximum davor) oder direkten Nachfolger (Minimum danach) ersetzt und der Knoten wird ggf. zusammengeführt.
+\subsection{Laufzeitkomplexität für B-Bäume}
+Worst \& Average Case:
+\begin{itemize}
+  \item Suche: $O(\log n)$
+  \item Einfügen: $O(\log n)$
+  \item Entfernen: $O(\log n)$
+\end{itemize}
 
 \end{document}
