@@ -668,5 +668,45 @@ Worst \& Average Case:
   \item Einfügen: $O(\log n)$
   \item Entfernen: $O(\log n)$
 \end{itemize}
-
+\section{Rot-Schwarz Bäume}
+Binäre Suchbäume haben den Vorteil, dass sie einfach zu implementieren sind und ein einfaches Suchen und Traversieren ermöglichen.
+\\B-Bäume haben den Vorteil, dass sie immer weitgehend ausbalanciert sind.
+\\Rot-Schwarz Bäume kombinieren die Vorteile der beiden.
+\subsection{Definition}
+\begin{itemize}
+  \item Jeder Knoten ist rot oder schwarz
+  \item Die Wurzel ist schwarz
+  \item Jeder rote Knoten hat nur schwarze Kinder
+  \item Jeder Nil-Knoten unter einem Blatt ist per Definition schwarz
+  \item Für jeden Knoten k gilt: Jeder Pfad von k zu einem Blatt hat die gleiche Anzahl an schwarzen Knoten
+  \item Nil-Knoten: Knoten ohne Schlüssel - nur als Platzhalter (schwarz)
+\end{itemize}
+\textbf{Höhe von Rot-Schwarz Bäumen:} $h \leq 2 \cdot [log_2(n+1)]$
+\subsection{Suche in Rot-Schwarz Bäumen}
+Die Suche erfolgt wie bei binören Suchbäumen - die Farbe der Knoten spielt dabei keine Rolle.
+\\Worst Case: $O(\log n)$
+\subsection{Einfügen in Rot-Schwarz Bäumen}
+Beim Einfügen neuer Schlüssel kann zunächst, wie bei binären Suchbäumen üblich, vorgegangen werden und der
+Wert als neues Blatt an passender Stelle eingehängt werden.
+\\Danach muss die Farbe des Knotens und die Farbe der Kinder geprüft werden.
+\begin{itemize}
+  \item Wird ein neues Blatt als roter Knoten eingefügt führt das ggf. zu einem Rot-rot-Problem
+  \item Wird ein neues Blatt als schwarzer Knoten eingefügt, zerstört das die Eigenschaft, 
+  dass auf allen Pfaden von der Wurzel zu einem Blatt die gleiche Anzahl an schwarzen Knoten liegt
+  \item Probleme mit roten Blättern sind leichter zu lösen als mit schwarzen Blättern
+\end{itemize}
+\textbf{Prinzipielle Vorgehensweise:}
+\begin{lstlisting}
+- neuen Key als Blatt einfuegen - Farbe rot (2 schwarze Nil-Knoten)
+- Falls Elternknoten rot --> Korrekturen 
+- Falls am Ende Wurzel rot --> Farbe schwarz
+\end{lstlisting}
+\textbf{Reorganisation durch Insertion Fixup:}
+\\\includegraphics[width=1\textwidth]{graphics/Fixup1}
+\\\includegraphics[width=1\textwidth]{graphics/Fixup2}
+\subsection{Laufzeitkomplexität für Rot-Schwarz Bäume}
+Worst \& Average Case:
+\\- Einfügen: $O(\log n)$
+\\- Entfernen: $O(\log n)$
+\\- Suche: $O(\log n)$
 \end{document}
