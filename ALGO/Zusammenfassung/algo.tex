@@ -845,4 +845,59 @@ for (E e : collection) {
 }
 \end{lstlisting}
 
+\chapter{Graphalgorithmen}
+\section{Implementierung von Graphen}
+\textbf{Adjazenz:} Ein Knoten ist adjazent zu einem anderen, wenn es eine Kante zwischen ihnen gibt.
+\\\textbf{Adjazenzmatrix:}
+\\- Speicherung der Kanten als Matrix
+\\- $O(n^2)$ Speicherplatz
+\\\textbf{Adjazenzliste:}
+\\- Speicherung der Kanten als Liste
+\\- $O(n+m)$ Speicherplatz
+\section{Traversierung von Graphen}
+\subsection{Breitensuche}
+\textbf{Definition:} Die Breitensuche ist ein Algorithmus, der alle Knoten eines Graphen in der Reihenfolge der Entfernung vom Startknoten durchläuft.
+\begin{lstlisting}
+fuer jeden Knoten u in V
+  u.farbe = weiss
+  u.distanz = unendlich
+  u.vorgaenger = null;
+s.farbe = grau
+s.distanz = 0;
+Q = new Queue() // Warteschlange fuer noch zu bearbeitende Knoten
+Q.enqueue(s); // Startknoten in Warteschlange aufnehmen
+solange Q nicht leer wiederhole
+  u = Q.dequeue(); // vordersten Knoten aus Warteschlange entnehmen
+  fuer jeden Knoten v, der Nachbar von u ist:
+    falls v.farbe = weiss dann // neu entdeckter Knoten
+      v.farbe = grau
+      v.distanz = u.distanz + 1;
+      v.vorgaenger = u;
+      Q.enqueue(v) // Nachbar v in Warteschlange aufnehmen
+ u.farbe = schwarz // Knoten ist fertig bearbeitet
+\end{lstlisting}
+Für einen Graphen hat die Breitensuche eine Laufzeit von $O(n+m)$.
+\subsection{Tiefensuche}
+\textbf{Definition:} Die Tiefensuche ist ein Algorithmus, der alle Knoten eines Graphen in der Reihenfolge der Entdeckung durchläuft.
+\begin{lstlisting}
+fuer jeden Knoten u in V setze:
+  u.farbe = weiss // Farbe des Knotens
+  u.vorgaenger = null; // Vorgaenger auf dem Weg zum Startknoten
+zeit = 0;
+BesucheTief(G, s)
+  
+BesucheTief(G, u)
+  u.farbe = grau
+  zeit++
+  u.startzeit = zeit
+  fuer jeden Knoten v, der Nachbar von u ist wiederhole
+    falls v.farbe = weiss dann
+      v.vorgaenger = u;
+      BesucheTief(G, v)
+  
+  u.farbe = schwarz
+  zeit++
+  u.endzeit = zeit
+\end{lstlisting}
+Die Tiefensuche hat eine Laufzeit von $O(n+m)$. - Die gleiche Laufzeit wie die Breitensuche.
 \end{document}
