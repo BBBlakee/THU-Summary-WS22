@@ -716,7 +716,7 @@ Jeder Knoten enthält ein Array von der Größe des Alphabets M mit Referenzen a
 Binäre Tries sind eine Spezialfall für das binäre Alphabet M = {0,1}. Die Schlüsselwerte sind somit Bitfolgen.
 Da es pro Zeichen einen Nachfolger geben kann, ergibt sich ein Binärbaum.
 \subsection{Suche in Tries}
-\includegraphics[width=1\textwidth]{graphics/trie-suche}
+\includegraphics[width=0.7\textwidth]{graphics/trie-suche}
 \subsection{Einfügen in Tries}
 \begin{lstlisting}
 - nach Zeichenkette suchen - falls vorhanden, fertig
@@ -725,4 +725,41 @@ Da es pro Zeichen einen Nachfolger geben kann, ergibt sich ein Binärbaum.
   - Endet Suche an einem Blatt, das ein anderes Wort speichert --> Blatt wird aufgeteilt
   - Endet Suche bei innerem Knoten wird dort neue Zeichenkette eingefuegt
 \end{lstlisting}
+
+\chapter{Hashtabellen}
+\section{Grundprinzip Hashing}
+Die Einträge werden in einem Array fester Größe gespeichert.
+\\ Bei Maps besteht jeder Eintrag aus Schlüssel und Wert. Bei Sets besteht der Eintrag nur aus dem Schlüssel.
+\section{Hashfunktionen}
+Die Funktion muss schnell berechenbar sein, möglichst wenig Adresskollisionen verursachen und alle Adressen gleich wahrscheinlich besuchen.
+\subsection{Division-Rest-Methode}
+\textbf{Hashfunktion nach Division-Rest-Methode:} $h(k) = k mod m$
+\\Schlecht geeignet ist eine 2er-Potenz $2^j$ als Größe des Arrays, da dann nur die $j$-niedrigsten Bits des Schlüssels betrachtet werden.
+\\Eine bessere Wahl ist eine Primzahl $p$ als Größe des Arrays, da dann alle Schlüsselwerte betrachtet werden.
+\subsection{Multiplikationsmethode}
+\textbf{Hashfunktion nach Multiplikationsmethode:} $h(k) = \lfloor m \cdot (F \cdot k - \lfloor F \cdot k \rfloor ) \rfloor$
+\\Dabei ist $F$ eine irrationale Zahl.
+\section{Adresskollisionen}
+Eine Adresskollision tritt auf, wenn zwei Schlüsselwerte auf die gleiche Adresse abgebildet werden. --> Hashfunktion muss so gewählt werden, dass dies möglichst selten vorkommt.
+\subsection{Wahrsccheinlichkeit für Adresskollisionen}
+\includegraphics[width=0.7\textwidth]{graphics/kollisionen}
+\subsection{Auflösung von Adresskollisionen}
+\textbf{Verkettung der Überläufer:}
+\\Es wird ein Überlaufbereichs außerhalb der Hashtabelle verwenden (typischerweise als verkettete Listen 
+implementiert), so dass zu einer Adresse mehrere Einträge gespeichert werden können.
+\\\textbf{Hashing mit offener Adressierung:}
+\\Ist beim Eintragen eine Adresse bereits belegt, wird nach einer sog. Sondierungsregel eine Ersatzposition 
+innerhalb der Hashtabelle gesucht. Beim Suchen muss dann in gleicher Weise auch
+berücksichtigt werden, an welchen Ersatzpositionen entsprechend der Sondierungsregel der Eintrag gespeichert sein könnte.
+\\\textbf{Belegungsfaktor $\beta$:}
+\\\tab $\beta = \frac{n}{m}$ --> Anzahl der Einträge $n$ durch Größe der Hashtabelle $m$.
+\section{Hashing mit Verkettung der Überläufer}
+\includegraphics[width=0.7\textwidth]{graphics/verkettung}
+\subsection{Laufzeitanalyse}
+\textbf{Einfügen, Suchen, Löschen:}
+\\- Worst Case: $O(n)$
+\\- Average Case: $O(1)$
+\section{Hashing mit offener Adressierung}
+Lektion 19 ab 8.5 //TODO
+
 \end{document}
