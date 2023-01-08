@@ -900,4 +900,63 @@ BesucheTief(G, u)
   u.endzeit = zeit
 \end{lstlisting}
 Die Tiefensuche hat eine Laufzeit von $O(n+m)$. - Die gleiche Laufzeit wie die Breitensuche.
+\subsection{Vergleich von Breiten- und Tiefensuche}
+\textbf{Breitensuche:}
+\begin{itemize}
+  \item [(V)] bestimmt den kürzesten Weg zwischen zwei Knoten
+  \item [(N)] hoher Speicherbedarf
+\end{itemize}
+\textbf{Tiefensuche:}
+\begin{itemize}
+  \item [(V)] geringer Speicherbedarf
+  \item [(V)] kann versch. Fragestellungen beantworten
+  \item [(N)] kann nicht den kürzesten Weg bestimmen
+\end{itemize}
+\section{Anwendungen der Tiefensuche}
+\subsection{Mark-and-Sweep-Garbage Collection}
+Die Garbage-Collection zur Freigabe dynamisch allokierten Speichers im Laufzeitsystem von Programmiersprachen
+ist graphentheoretisch gesehen auch ein Erreichbarkeitsproblem.
+\\Der Garbage Collector arbeitet in zwei Phasen:
+\begin{itemize}
+  \item [(1)] Mark: Alle Objekte, die vom Root-Objekt aus erreichbar sind, werden markiert.
+  \item [(2)] Freigabe: Alle nicht markierten Objekte werden freigegeben.
+\end{itemize}
+\subsection{Test auf Zyklenfreiheit}
+\textbf{Anwendungsbeispiele:}
+\begin{itemize}
+  \item Netzpläne (z.B. in der Elektrotechnik)
+  \item Deadlock-Erkennung bei Synchronisation parallel laufender Prozesse
+\end{itemize}
+\textbf{Zyklenerkennung mit Tiefensuche:}
+\begin{lstlisting}
+setze alle Knoten u in V auf weiss
+wiederhole
+  waehle einen noch weissen Knoten u in V aus
+  fuehre modifizierte rekursive Tiefensuche mittels
+    BesucheTief'(G, u) aus
+  so lange bis alle Knoten schwarz gefaerbt sind
+
+BesucheTief'(G, u)
+  u.farbe = grau
+  fuer jeden Knoten v, der Nachbar von u ist wiederhole
+    falls v.farbe = weiss dann
+      v.vorgaenger = u;
+      BesucheTief'(G, v)
+    falls v.farbe = grau dann
+      // Zyklus gefunden
+      // Rueckgabe des Zyklus
+    falls v.farbe = schwarz dann
+      // v wurde bereits besucht
+  u.farbe = schwarz
+\end{lstlisting}
+\subsection{Topologische Sortierung}
+\begin{lstlisting}
+Initialisierung:
+  zeit = 0
+  setze alle Knoten u in V auf weiss
+Wiederhole fuer alle Knoten w in V mit Eingangsgrad 0:
+  fuehre BesucheTief(G,w) aus um den Endzeitpunkt zu bestimmen
+Ordne die Knoten absteigend nach Endzeitpunkt
+\end{lstlisting}
+Laufzeitkomplexität: $O(n+m)$ - n Knoten, m Kanten
 \end{document}
