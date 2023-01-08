@@ -709,4 +709,20 @@ Worst \& Average Case:
 \\- Einfügen: $O(\log n)$
 \\- Entfernen: $O(\log n)$
 \\- Suche: $O(\log n)$
+\section{Tries}
+Jeder Knoten enthält ein Array von der Größe des Alphabets M mit Referenzen auf die zugehörigen Teilbäume.
+\\Jeder Knoten kann außer den Referenzen auf die Kinderknoten auch eine Zeichenkette speichern.
+\\\textbf{Binäre Tries:}
+Binäre Tries sind eine Spezialfall für das binäre Alphabet M = {0,1}. Die Schlüsselwerte sind somit Bitfolgen.
+Da es pro Zeichen einen Nachfolger geben kann, ergibt sich ein Binärbaum.
+\subsection{Suche in Tries}
+\includegraphics[width=1\textwidth]{graphics/trie-suche}
+\subsection{Einfügen in Tries}
+\begin{lstlisting}
+- nach Zeichenkette suchen - falls vorhanden, fertig
+- falls nicht vorhanden, neue Zeichenkette einfuegen
+  - Endet Suche mit leerer Referenz eines inneren Knotens, wird dort neue Zeichenkette eingefuegt
+  - Endet Suche an einem Blatt, das ein anderes Wort speichert --> Blatt wird aufgeteilt
+  - Endet Suche bei innerem Knoten wird dort neue Zeichenkette eingefuegt
+\end{lstlisting}
 \end{document}
