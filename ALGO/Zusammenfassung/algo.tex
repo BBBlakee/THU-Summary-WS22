@@ -762,4 +762,87 @@ berücksichtigt werden, an welchen Ersatzpositionen entsprechend der Sondierungs
 \section{Hashing mit offener Adressierung}
 Lektion 19 ab 8.5 //TODO
 
+\chapter{Das Java-Collection-Framework}
+\section{Hashtabellen in Java}
+\subsection{Klassen in Package java.util}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Klasse} & \textbf{Beschreibung} \\
+\hline
+\texttt{HashMap} & \texttt{Map}-Implementierung mit Hashing \\
+\texttt{HashSet} & \texttt{Set}-Implementierung mit Hashing \\
+\texttt{Hashtable} & \texttt{Map}-Implementierung mit Hashing \\
+\hline
+\end{tabular}
+\section{Collections}
+Eine Collection ist eine Sammlung von Objekten mit folgenden Operationen:
+\begin{itemize}
+  \item \texttt{add(E e)}: Fügt ein Element hinzu
+  \item \texttt{contains(Object o)}: Prüft, ob ein Element enthalten ist
+  \item \texttt{remove(Object o)}: Entfernt ein Element
+\end{itemize}
+\begin{lstlisting}
+public interface Collection<E> {
+  boolean add(E o);
+  boolean contains(Object o);
+  boolean remove(E o);
+  boolean isEmpty();
+  int size();
+  Iterator<E> iterator();
+  ...
+}
+\end{lstlisting}
+\subsection{Abstrakte Datentypen}
+\begin{itemize}
+  \item List - Liste
+  \item Queue - Warteschlange
+  \item Set - Menge
+\end{itemize}
+\subsection{Konkrete Implementierungen}
+\includegraphics[width=0.7\textwidth]{graphics/Collections}
+\\\textbf{Listen:}
+\begin{itemize}
+  \item LinkedList - Doppelt verkettete Liste (nicht thread-safe)
+  \item ArrayList - Array mit dynamischer Größe (nicht thread-safe)
+  \item Vector - Array mit dynamischer Größe (thread-safe)
+  \item Stack - Unterklasse von Vector
+\end{itemize}
+\\\textbf{Queues:}
+\begin{itemize}
+  \item PriorityQueue - Warteschlange mit Priorität
+  \item ArrayDeque - Ringpuffer mit dynamischer Größe (nicht thread-safe)
+  \item LinkedList - Doppelt verkettete Liste (nicht thread-safe)
+\end{itemize}
+\\\textbf{Sets:}
+\begin{itemize}
+  \item HashSet - dynamische Hashtabelle
+  \item TreeSet - Rot-Schwarz-Baum 
+\end{itemize}
+\section{Maps}
+Eine Map ist eine Sammlung von Schlüssel-Wert-Paaren.
+\subsection{Implementierungen}
+\includegraphics[width=0.7\textwidth]{graphics/Maps}
+\begin{itemize}
+  \item HashMap - dynamische Hashtabelle (nicht thread-safe)
+  \item Hashtable - HashMap (thread-safe)
+  \item TreeMap - Rot-Schwarz-Baum, Schlüssel müssen Comparable sein
+\end{itemize}
+\section{Iteratoren}
+\textbf{Definition:} Ein Objekt, das zu einer Datensammlung gehört und das erlaubt, 
+\\- alle Elemente der Sammlung nacheinander zu durchlaufen.
+\\- ohne Kenntnis der konkreten Implementierung der Sammlung.
+\begin{lstlisting}[language=Java]
+public interface Iterator<E> {
+  boolean hasNext(); // gibt true zurueck, wenn noch ein Element vorhanden ist
+  E next(); // liefert das naechste Element
+  void remove(); // entfernt das aktuelle Element
+}
+\end{lstlisting}
+\section{For-each-Schleife für Collections}
+\begin{lstlisting}[language=Java]
+for (E e : collection) {
+  // e ist das aktuelle Element
+}
+\end{lstlisting}
+
 \end{document}
