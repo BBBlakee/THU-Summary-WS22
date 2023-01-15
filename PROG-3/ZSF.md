@@ -715,3 +715,25 @@ struct Amphibian : Boat, Car{
         Vehicle::wheels = w; // error: ambiguous
     }};
 ```
+
+### Code guidelines
+
+Clarity
+
+- C.135 Use multiple inheritance to represent multiple distinct interfaces
+- C.131 Avoid trivial getters and setters
+
+Performance
+
+- C.132 Don't make a function virtual unless you intend to override it
+
+Correctness
+
+- C.133 Avoid protected data
+- C.134 Ensure all non-const data members have the same access level
+- C.128 Virtual functions should specify exactly one of virtual, override, or final
+- C.126 An abstract class typically doesn't need a constructor
+
+## Polymorphism
+
+![Polymorphism](./graphics/poly.jpg)
