@@ -637,3 +637,81 @@ Notes:
 
 ## Inheritance
 
+### Basics
+
+```cpp
+class B : public A { ...};
+```
+
+- ``B`` is a derived class of ``A`` (base class)
+- B inherits all public/protected members of A (no private members)
+- ``public`` inheritance: public members of A are public in B, protected members of A are protected in B
+- constructor/destructor from base classes are not inherited/forwarded automatically
+- constructors from base classes can be inherited with ``using``
+- derived classes can redefine methods of base classes
+
+```cpp
+struct A{
+    virtual void f(){std::cout << "a()\n";}
+    A() {f();}
+};
+
+struct B : A{
+    void f() override {std::cout << "b()\n";}
+};
+
+int main(){
+    B b; // prints "b()"
+}
+```
+
+Redefined functions must have the same parameters and return type as the base class function.
+
+**Pure virtual functions:**
+
+- are declared with ``=0``
+- have no definition
+- classes containing pure virtual functions are abstract classes and cannot be instantiated
+
+```cpp
+struct Contract{
+    virtual int add(int x, int y) = 0;
+};
+struct Implementation : Contract{
+    int add(int x, int y) override {return x+y;}
+};
+int main(){
+    Implementation impl;
+    impl.add(1,2); // 3
+}
+```
+
+**Early binding:** (static binding) - the compiler knows the type of the object at **compile time**  
+**Late binding:** (dynamic binding) - the compiler does know the type of the object at **run time**
+
+### Casts & Conversions
+
+- **Up-Cast** (implicit): Circle -> Shape (base class -> derived class)
+- **Down-Cast** (explicit): Shape -> Circle (base class -> derived class)
+- **Explicit cast:** ``static_cast<Derived*>(base_ptr)`` or ``dynamic_cast<Derived*>(base_ptr)``
+
+static_cast - happens at compile time, no runtime checks, principal compatibility is checked  
+dynamic_cast - happens at runtime, runtime checks, principal compatibility is checked
+
+### Multiple inheritance
+
+- Classes can be derived from more than one base class
+- Every base class is represented on its own
+
+```cpp
+struct Vehicle{ int wheels; };
+struct Boat : Vehicle{};
+struct Car : Vehicle{};
+struct Amphibian : Boat, Car{
+    void setWheels(int w){
+        wheels = w; // error: ambiguous
+        Boat::wheels = w; // ok
+        Car::wheels = w; // ok
+        Vehicle::wheels = w; // error: ambiguous
+    }};
+```
