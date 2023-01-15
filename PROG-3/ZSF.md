@@ -806,4 +806,125 @@ int main(){
 
 ### Operator overloading
 
-  
+- Operators are functions or methods
+- You cannot overload operators for built-in types (int, double, etc.)
+- For custom types you can overload operators with the ``operator`` keyword
+
+Types of operators:
+
+- assignment operators (``=``, ``+=``, ``-=``, etc.)
+- increment/decrement operators (``a++``, ``b--``, etc.)
+- arithmetic operators (``+``, ``-``, ``*``, etc.)
+- logical operators (``&&``, ``||``, ``!a``)
+- comparison operators (``==``, ``!=``, ``<``, etc.)
+- member acess operators (``a->b`` and ``a[b]``, etc.)
+- function call operators (``a()`` and ``new/delete``)
+
+**``a op b`` --> ``a.operator op(b)``**
+
+```cpp
+#include <iostream>
+
+struct A{
+    int sum = 0;
+    A& operator<<(int x){sum += x; return *this;}
+};
+
+int main(){
+    A a;
+    a << 5 << 10 << 1; (a<<5) yields a again (return *this) // a = 16
+    a.operator<<(4); // same as a << 4
+    std::cout << a.sum; // 20
+}
+```
+
+### Custom unary operators
+
+- as method
+
+```cpp
+struct A{
+    B operator!(){...}
+};
+```
+
+- as free function
+
+```cpp
+B operator!(A& a){...}
+```
+
+**``++`` & ``--``**
+
+The unary increment and decrement operators are special because they can be used as both prefix and postfix operators.  
+--> A dummy parameter is inserted for the postfix version
+
+```cpp
+a++; // corresponds to a.operator++(0)
+++a; // corresponds to a.operator++()
+```
+
+### Friends
+
+- you can grant access to private attributes/methods to friends.
+- a class decides which friend it has
+
+```cpp
+class A{
+    friend void someGlobalFunction(); // someGlobalFunction can access private attributes of A
+    friend int B::someMethod(); // B::someMethod can access private attributes of A
+};
+```
+
+Example (class A grants access to class B to have private access to A)
+
+```cpp
+class B {
+    ...
+    public:
+        void method1(A a1);
+        int method2 (A& a2);
+};
+
+class A{
+    private: ..
+    public: ..
+    friend class B;
+};
+```
+
+### Lookup details
+
+ADL (Argument Dependent Lookup) - the compiler searches for a function in the namespace of the argument  
+For unqualified function calls, the compiler searches for a function in the namespace of the argument
+
+```cpp
+#include <iostream>
+
+namespace detail {
+    struct A {
+        int x;
+    };
+
+    std::ostream &operator<<(std::ostream &os, const A &a) {
+        os << "A.x=" << a.x;
+        return os;
+    }
+
+    void f(const A &a) { std::cout << "f(" << a.x << ")\n"; }
+
+    void f(int x) { std::cout << "f(int: " << x << ")\n"; }
+}
+
+int main() { // which line does not compile?
+    detail::A a{11};
+    std::cout << a << "\n";
+    f(a);
+    //f(a.x); // does not compile 
+    //f(3); // doesn't compile - f not defined in scope
+    detail::f(4);
+```
+
+### Iterators
+
+09 page 40
