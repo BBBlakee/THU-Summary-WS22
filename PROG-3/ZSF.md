@@ -736,4 +736,74 @@ Correctness
 
 ## Polymorphism
 
-![Polymorphism](./graphics/poly.jpg)
+![](./graphics/poly.jpg)
+
+Polymorphism with function overloading:
+
+```cpp
+#include <iostream>
+
+struct Cat {};
+struct Dog {};
+
+void make_noise(Cat) {
+    std::cout << "meow.\n";
+}
+void make_noise(Dog) {
+    std::cout << "bark.\n";
+}
+
+int main() {
+    Dog d; 
+    Cat c;
+    make_noise(d); // bark.
+    make_noise(c); // meow.
+}
+```
+
+### Domain modeling
+
+- **Domain modeling:** is the process of creating a conceptual model for a specific problem
+- Composition - the part cannot exist without the whole (e.g. a car cannot exist without an engine)
+- Aggregation - both partners exist independently (e.g. a company can exist without an employee)
+
+```cpp
+struct House { // composition
+Room room1; // non-replaceable
+std::unique_ptr<Room> room2; // replaceable - can be replaced
+};
+struct Company { // aggregation
+std::shared_ptr<Person> person1; // with ownership
+std::weak_ptr<Person> person2; // without ownership
+};
+```
+**Is-A** relationship: A Circle is a Shape
+
+### Forward declaration and incomplete types
+
+![](./graphics/forward.jpg)
+
+Solution:
+
+- ``struct Name;`` declares an incomplete struct
+- you cannot use an incomplete struct but you can declare pointers/refrences to it
+
+**Incomplete types:**
+
+- Classes that have been declared but not defined
+- Creating an object of an incomplete type is  an **ill-formed** construct
+- Incomplete types are used for forward declarations
+
+```cpp
+class A;
+int main(){
+    A* ap; // ok: pointer to incomplete type
+    A a; // error: incomplete type - ill-formed
+}
+```
+
+## Operators
+
+### Operator overloading
+
+  
