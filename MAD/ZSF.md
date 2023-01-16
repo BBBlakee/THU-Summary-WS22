@@ -282,3 +282,33 @@ internet directly from the event handler?**
     - GUI would block (single thread)
     - Access to network data could potentially take a long time
     - If it takes too long Android will kill the app
+
+### App Lifecycle / Sensors
+
+- **In which situation is onCreate / onResume / on Pause / onDestroy called?**
+  - ``onCreate``: when the activity is created
+  - ``onResume``: when the activity is resumed
+  - ``onPause``: when the activity is paused
+  - ``onDestroy``: when the activity is destroyed/finished
+- **When is an apps process (and all its threads) destroyed?**
+  - When the app is closed
+  - When the app is in the background for a long time
+- **Name 2 examples of each a base sensor and a composite sensor!**
+  - Base sensors: Accerleration, Gyroscope, Proximity, Air pressure, Light
+  - Composite sensors: Acceleration, Gravity, Step counter
+- **What are the steps to take if you want to obtain sensor values for a compass?
+(basic steps)**
+  - Get sensor manager
+  - Get sensor
+  - Register listener
+
+```java
+SensorManager sman = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+List<Sensor> sensors = sman.getSensorList(Sensor.TYPE_LIGHT);
+if(sensors.size() == 0) {
+    // no sensor found
+} else {
+    Sensor sensor = sensors.get(0);
+    sman.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+}
+```
