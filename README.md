@@ -7,7 +7,7 @@
 [![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org)
 ### Progress
 
-- **[MAD](MAD/Zsf.md)**
+- **[MAD](MAD/ZSF.md)**
 - **[Algortihmen und Datenstrukturen](ALGO/Zusammenfassung/)** (nearly finished)  
 - **[Programmieren 3](PROG-3/)** (in progress)
 
