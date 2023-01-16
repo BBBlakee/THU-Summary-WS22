@@ -386,3 +386,23 @@ What is its purpose?**
 - **Given some Content Provider code, can you explain?**
   - TODO
 
+### Services / Audio
+
+- **What is a Service?**
+  - A service is a component that runs in the background to perform long-running operations
+  - f.e. playing music, downloading files, synchronizing data, etc.
+- **When would you use an IntentService, when a JobService?**
+  - IntentService: starts from an intent, runs in background, stops itself when done, runs independently
+  - JobService: automatically starts when conditions are met, runs in background, stops itself when done, runs independently
+- **If you use a service that is part of the operating system how can you access it?
+(Manager)**
+  - TODO
+- **Explain (given) source code related to services!**
+  - TODO
+- **If you want to play an audio file using MediaPlayer that is stored on the web,
+which steps do you have to take?**
+  - Get the URL of the audio file
+  - Download the file
+  - Initialize the MediaPlayer with the downloaded file
+  - Start playing the audio file
+
