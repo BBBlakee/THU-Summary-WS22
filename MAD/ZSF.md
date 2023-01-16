@@ -172,8 +172,24 @@ public View getView(int i, View view, ViewGroup viewGroup) {
 ### Ressources / Event Handling / Toolbars
 
 - **What is a resource qualifier? Name 3 examples!**
+  - Language
+  - Region
+  - Orientation
+  - Resolution, display density
+  - day/night
 - **How can you access a resource from within your application?**
+  - f.e. ```R.string.app_name``` or ```R.drawable.ic_launcher```
 - **Which view can be used to show a picture?**
+  - ``ImageView``
 - **How can you create a multilingual app for Android?**
+  - Use ``strings.xml`` for each language with different language qualifiers
 - **Which basic steps do have to take if you want to add a toolbar menu/icons to
 your app? (only basic steps!)**
+  - Remove standard title bar in the manifest ``android:theme="@style/Theme.AppCompat.Light.NoActionBar">``
+  - Add toolbar to the layout
+  - Set default toolbar in onCreate
+
+```java
+Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+setSupportActionBar(toolbar);
+```
