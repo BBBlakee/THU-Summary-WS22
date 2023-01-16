@@ -441,3 +441,21 @@ the Google Location Services API? (basic description or explaining given
 source code)**
   - TODO
 
+### Alternative approaches
+
+- **What are the advantages/limitations of using alternative development
+approaches in general?**
+  - Advantages:
+    - no additional cost for porting
+    - No double code bases
+    - Sometimes possible to reuse existing knowledge
+  - Disadvantages:
+    - Often additional layers of complexity
+- **What basic different types of approaches exist? Name one example each!
+What are pros/cons?**
+  - TODO
+- **What is a hybrid app?**
+  - TODO
+- **Using which language do you develop for Flutter / Ionic Framework?**
+  - Iconic: HTML, CSS, JavaScript
+  - Flutter: Dart, C(++/#), JavaScript
