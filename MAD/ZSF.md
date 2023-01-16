@@ -312,3 +312,46 @@ if(sensors.size() == 0) {
     sman.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
 }
 ```
+
+### Concurrency / Notifications / Deployment
+
+- **What does concurrency on Android have in common with concurrency in
+Java?**
+  - Threads
+  - Runnable
+  - synchronized
+- **When do we need concurrency in Android apps?**
+  - When we want to do something in the background
+  - When we want to do something in parallel
+  - When we want to do something in the UI thread
+- **If we started a new thread, why can’t we update the UI (progress, results…)
+directly from there?**
+  - Views can only be changed from UI thread!
+  - ``runOnUiThread`` can be used to run code on UI thread
+- **Name two ways to send code to execute to the UI thread! (method names /
+code example with runnable)**
+  - ``runOnUiThread``
+  - ``post``
+
+```java
+runOnUiThread(new Runnable() {
+    @Override
+    public void run() {
+        // code to run on UI thread
+    }
+});
+```
+
+- **Name three ways an Android app can notify the user!**
+  - Toast
+  - Notification
+  - Dialog
+- **What are the elements of a Notification?**
+  - Title, text, icon, sound, vibration, light, priority, category, visibility, actions
+- **What are the basic steps to create a Notification?**
+  - TODO
+- **Why do we need to sign apps with a certificate?**
+  - TODO
+- **Which malicious scenario does app signing prevent?**
+  - TODO
+
