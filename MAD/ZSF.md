@@ -6,7 +6,7 @@ title: Mobile Application Development
 
 multiple choice questions, naming, explaining, analyzing/writing source code
 
-**General**
+### General
 
 - Know concepts, names. Be able to explain these as precise as possible.
 - Be able to explain every kind of code on the topics from this course.
@@ -54,3 +54,61 @@ development. Name them and discuss the differences!**
   - Cross-Platform Development Tools
     - pros: development for multiple platforms with one code base, low development costs
     - cons: limited access to device features, lower performance
+
+### First Steps
+
+- **Shown is the Android architecture (F2.7). Briefly explain or name the 6
+different areas!**
+  - System Apps (Dialer, Email, Browser, etc.)
+  - Java API Framework (Content Providers, View System, Managers, etc.)
+  - Native Libraries (C/C++ Libraries)
+  - Android Runtime (ART, Core Libraries)
+  - Hardware Abstraction Layer (HAL) (Audio, Sensors, etc.)
+  - Linux Kernel (Drivers, Power Management, etc.)
+- **What do the terms “Minimum SDK” and “Target SDK” mean for an Android
+project?**
+  - Minimum SDK: the lowest Android version that is supported by the app
+  - Target SDK: the Android version that the app is developed for
+- **How can you make an Android device ready to use for development?**
+  - Activate Developer Options
+  - Connect the device to the computer
+  - Allow USB debugging
+- **What is an activity?**
+  - App component that is responsible for a single screen with a user interface
+  - can start other activities
+  - <-- returns to the previous activity
+- **Given a basic project structure (AndroidManifest.xml, res/activity_main.xml)
+give an implementation for the activity MainActivity that shows the layout!**
+
+```java
+package com.example.ZSF;
+import ...;
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}
+```
+
+- **How can you add an event handler to a button? (describe with source code or
+natural language)**
+  - add an onClick attribute to the button in the layout and create the method
+  - set an onClickListener in the activity
+
+```java
+Button button = (Button) findViewById(R.id.button);
+button.setOnClickListener(v -> {
+            (// do something)
+        });
+```
+
+- **How can you find a View from your layout to access its properties / call
+methods? (source code AND explanation)**
+- Search for the View in the `R` class (e.g. `R.id.button`)
+
+```java
+Button button = (Button) findViewById(R.id.button); // cast is unnecessary
+```
+
