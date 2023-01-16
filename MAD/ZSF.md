@@ -355,3 +355,34 @@ runOnUiThread(new Runnable() {
 - **Which malicious scenario does app signing prevent?**
   - TODO
 
+### Data Storage
+
+- **Name 3 options for persisting data in your app!**
+  - Shared Preferences
+  - Access File System
+  - Embedded SQLite Database
+  - Content Provider
+  - Paper.io
+- **How is file access different in Android different from standard Java?**
+  - TODO
+- **Where do you have to store files if you do not want other apps be able to
+access them?**
+  - in the Internal Storage
+- **Can you store sensitive data on external storage? Why?**
+  - No, because it is not encrypted
+  - Storage is accessible by other apps
+  - Can be removed or made unavailable by the user
+- **What is SQlite? How is it conceptually different from other DBMS like MySQL,
+Oracle or postgresql?**
+  - SQLite is a relational database management system contained in a C library
+  - It is a serverless, zero-configuration, transactional SQL database engine
+  - It is the most widely deployed SQL database engine in the world
+- **To access an SQlite database we wrote a class extending SQLiteOpenHelper?
+What is its purpose?**
+  - TODO
+- **What is a “Content Provider”? Name examples!**
+  - It is a standard interface that allows you to access application-specific data
+  - Contacts, Calendar, Media, SMS, Email, Browser, Downloads, Settings, Call Log
+- **Given some Content Provider code, can you explain?**
+  - TODO
+
