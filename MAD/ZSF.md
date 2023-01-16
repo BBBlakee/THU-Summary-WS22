@@ -1,12 +1,8 @@
----
-title: Mobile Application Development
----
+# Mobile Application Development
 
-## Questions in the exam
+## General
 
 multiple choice questions, naming, explaining, analyzing/writing source code
-
-### General
 
 - Know concepts, names. Be able to explain these as precise as possible.
 - Be able to explain every kind of code on the topics from this course.
