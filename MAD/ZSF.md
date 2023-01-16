@@ -406,3 +406,38 @@ which steps do you have to take?**
   - Initialize the MediaPlayer with the downloaded file
   - Start playing the audio file
 
+### Location
+
+- **From which sources can a device determine its position?**
+  - Satellite Navigation (GPS)
+  - Mobile Network (from Cell id)
+  - Wifi-networks
+- **Signals from how many satellites (GPS) are at least required to determine
+position?**
+  - 4 satellites are required to determine position
+- **Using which numbers can we specify a location on earth?**
+  - Latitude, Longitude
+- **Which APIs can we use to determine location? Advantages/Disadvantages of
+each?**
+  - Android Framework Location API
+    - Advantages:
+      - Easy to use
+      - Works on all Android devices
+    - Disadvantages:
+      - Not very accurate
+      - Not very fast
+      - Not very power efficient
+  - Google Location Services API
+    - Advantages:
+      - Accurate
+      - Fast
+      - Power efficient
+    - Disadvantages:
+      - Requires Google Play Services
+      - Requires Google Account
+      - Requires Internet connection
+- **Which basic steps do you have to take if you want to track your location using
+the Google Location Services API? (basic description or explaining given
+source code)**
+  - TODO
+
