@@ -222,3 +222,63 @@ activity (f.e. camera)? (basic explanation)**
   - Start activity with ``startActivityForResult(intent, requestCode)``
   - Override ``onActivityResult(requestCode, resultCode, data)`` in the activity
   - Check if the result is valid and get the data
+
+### Web APIs
+
+- **What is a “Web API”?**
+  - Application Programming Interface for the Web
+  - Provides access to data and functionality of an application
+  - Can be used by other applications
+- **What is REST?**
+  - Representational State Transfer
+  - Architectural style for distributed hypermedia systems
+  - Uses HTTP for communication
+- **What are the most common formats for computer consumable information in
+Web APIs?**
+  - XML, JSON
+- **Given a (uncommented) list of required classes/methods query a given web
+ressource (f.e. OMDB url) and extract information from the resulting XML
+(example given) (source code!)**
+
+```java	
+private void updateCurrencies() {
+    Thread thread = new Thread(() -> {
+        try {
+            String webString = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
+            try {
+                URL url = new URL(webString);
+                URLConnection connection = url.openConnection();
+                XmlPullParser parser = XmlPullParserFactory.newInstance().newPullParser();
+                parser.setInput(connection.getInputStream(), connection.getContentEncoding());
+                int eventType = parser.getEventType();
+                while (eventType != XmlPullParser.END_DOCUMENT) {
+                    if (eventType == XmlPullParser.START_TAG) {
+                        if (parser.getName().equals("Cube")) {
+                            String currency = parser.getAttributeValue(null, "currency");
+                            String rate = parser.getAttributeValue(null, "rate");
+                            if (currency != null && rate != null) {
+                                ExchangeRateDatabase.setRates(currency, rate);
+                            }
+                        }
+                    }
+                    eventType = parser.next();
+                }
+            } catch (Exception e) {
+                Log.e("ErrorURL", "Error with XML: " + e.getMessage());
+                throw new RuntimeException(e);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    });
+    thread.start();
+}
+```
+
+- **Why will we get a NetworkOnMainThreadException if we try to access the
+internet directly from the event handler?**
+  - Because the main thread is not allowed to do network operations
+  - Problems:
+    - GUI would block (single thread)
+    - Access to network data could potentially take a long time
+    - If it takes too long Android will kill the app
