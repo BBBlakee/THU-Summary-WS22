@@ -193,3 +193,32 @@ your app? (only basic steps!)**
 Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 setSupportActionBar(toolbar);
 ```
+
+### Intents
+
+- **What are two fundamental types of intents?**
+  - Explicit intent: via and ID (e.g. ``new Intent(this, SecondActivity.class)``) 
+  - Implicit intent: give an action type or a data type (e.g. ``new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))``)
+- **Given an empty onClickHandler and a second activity SecondActivity, invoke
+this activity! (source code)**
+
+```java
+public void onClick(View view) {
+    Intent intent = new Intent(this, SecondActivity.class);
+    startActivity(intent);
+}
+```
+
+- **How can you pass data with an intent? (source code)**
+
+```java
+Intent intent = new Intent(this, SecondActivity.class);
+intent.putExtra("key", "value");
+startActivity(intent);
+```
+
+- **What is the basic control flow when we expect a result from an invoked
+activity (f.e. camera)? (basic explanation)**
+  - Start activity with ``startActivityForResult(intent, requestCode)``
+  - Override ``onActivityResult(requestCode, resultCode, data)`` in the activity
+  - Check if the result is valid and get the data
