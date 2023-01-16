@@ -112,3 +112,68 @@ methods? (source code AND explanation)**
 Button button = (Button) findViewById(R.id.button); // cast is unnecessary
 ```
 
+### App Contents / UI
+
+- **Given an AndroidManifest.xml explain its elements! (application, usespermission,
+activity, intent-filter, service…)**
+  - Declares information about the app and its services
+  - Required permissions ```<uses-permission android:name="android.permission.CALL_PHONE/>```
+  - SDK version ```<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="25"/>```
+  - All activities ```<activity android:name=".MainActivity">```
+  - Services ```<service android:name=".MyService"/>```
+  - Broadcast receivers ```<receiver android:name=".MyReceiver"/>```
+  - Content providers ```<provider android:name=".MyProvider"/>```
+- **Why do we have to declare required permissions in our manifest?**
+  - The user has to explicitly grant the permission
+- **How did the handling of permissions change with Android 6.0 (API level 23)?
+(Moodle FAQ)**
+  - Originally had to be granted by the user on installation
+  - Since Android 6.0, the user has to grant permissions at runtime
+- **What is the “Back-Stack”?**
+  - Stack (last in first out) of the past sequence of Activities
+- **How is the relationship between View and ViewGroup? Name an example
+concrete class for each!**
+  - View: a single UI element (e.g. Button, TextView, ImageView)
+  - ViewGroup: a container for other Views (e.g. LinearLayout, RelativeLayout)
+- **Name 3 rules for creating good mobile user interfaces from a user experience
+point of view!**
+  - Don't clutter screens: One Activitry per screen
+  - Easy to understand arragements
+  - Intuitive usability
+  - perform longer running tasks in the background
+  - standard keys keep their standard functions
+  - no special menu entry "Exit App"
+- **How can you connect a ListView with its data?**
+  - Use an Adapter (e.g. ArrayAdapter)
+- **What do you have to provide to an ArrayAdapter when creating it (in natural
+language, exact parameter order not relevant)**
+  - Context (Activity), Layout ressource, Array with data, id of the TextView
+- **When will an ArrayAdapter not be enough, meaning you have to implement a
+custom adapter class?**
+  - If you want to display more than one View per item
+  - Use a different layout
+- **Given a custom adapter class (like F3.36), explain what happens inmethod
+getView()!**
+  - gets data element at position ``i``
+  - Creates view, reuses existing view when provided to the method
+  - Fills view with data
+
+```java
+public View getView(int i, View view, ViewGroup viewGroup) {
+    if (view == null) {
+        view = LayoutInflater.from(context).inflate(R.layout.list_item, viewGroup, false);
+    }
+    TextView textView = (TextView) view.findViewById(R.id.textView);
+    textView.setText(data[i]);
+    return view;
+}
+```
+
+### Ressources / Event Handling / Toolbars
+
+- **What is a resource qualifier? Name 3 examples!**
+- **How can you access a resource from within your application?**
+- **Which view can be used to show a picture?**
+- **How can you create a multilingual app for Android?**
+- **Which basic steps do have to take if you want to add a toolbar menu/icons to
+your app? (only basic steps!)**
