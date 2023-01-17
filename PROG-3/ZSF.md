@@ -133,7 +133,7 @@ Use cases:
 - Data referencing (passing pointers instead of values)
 - Dynamic memory management
 
-**Pointer declaration** ``TYPE* name {...};``  
+**Pointer declaration** ``TYPE*name {...};``
 Addresses of variables can be accessed with ``&name``  
 Pointer arithmetic is possible --> ``&c2-&c1``  
 To access the data to which a pointer is pointing use the dereference operator ``*`` --> ``*name=2;``
@@ -174,11 +174,11 @@ int main() {
 ``func (const TYPE &value)`` --> reference to original value (input, large TYPES)  
 **Pass by pointer**:  
 ``func (TYPE *value)`` --> reference to original value (input, output)  
-``func (const TYPE *value)`` --> reference to original value (input)
+``func (const TYPE*value)`` --> reference to original value (input)
 
 ### Dynamic Memory Management
 
-**Allocation** ``TYPE* ptr = new TYPE{init};``  
+**Allocation** ``TYPE*ptr=new TYPE{init};``  
 **Deallocation** ``delete ptr;``  
 **Allocate N data element** ``TYPE* ptr = new TYPE[N];``  
 **Access** ``ptr[i]``  
@@ -777,6 +777,7 @@ std::shared_ptr<Person> person1; // with ownership
 std::weak_ptr<Person> person2; // without ownership
 };
 ```
+
 **Is-A** relationship: A Circle is a Shape
 
 ### Forward declaration and incomplete types
@@ -1018,3 +1019,136 @@ int main() {
 ```
 
 ## Conversions
+
+### Implicit conversions
+
+Integral values with less bits than an ``int`` can be converted to an ``int`` without loss of information.  
+Floating point values with less bits than a ``double`` can be converted to a ``double`` without loss of information.
+
+```cpp
+int main() {
+    int i = 1;
+    long l = 2;
+    float f = 3.0f;
+    double d = 4.0;
+    i = l; // ok
+    i = f; // ok
+    i = d; // ok
+    l = f; // ok
+    l = d; // ok
+    f = d; // ok
+}
+```
+
+### Overload resolution
+
+Every candidate function is compared, if the arguments are applicable.
+
+- **perfect match**: the argument types match the parameter types exactly
+- **integral/floating point promotion**: (``char`` to ``int``, ``bool`` to ``int``)
+- **standard conversion**: any possible conversion (``float`` to ``int``, ``int`` to ``double``)
+- **user-defined conversion**: any conversion defined by the user (``class A`` to ``class B``)
+
+```cpp
+void g(int){std::cout << "g1\n";}
+void g(long long){std::cout << "g2\n";}
+void f(int, double){std::cout << "f1\n";}
+void f(char, long double){std::cout << "f2\n";}
+
+int main(){
+    char c='a';
+    double d=2;
+    float fl=2;
+    long l=2;
+
+    g(c); // g1
+    g(l); // g2
+    f(c,fl); // f1
+    f(c,d); // f2
+}
+```
+
+**Derived classes:** Pointers can be converted according to inheritance rules. A pointer to a derived class can be converted to a pointer to a base class.  
+**const pointers/references:** A pointer/reference to a non const value can be converted to a pointer to a const value of the same type.  
+**Pointers** can be converted to a bool value. Every pointer that is not ``nullptr`` is converted to ``true``.
+
+```cpp
+#include <iostream>
+void f(bool x) {std::cout << "x==" << x << "\n";}
+int main(){
+    int *p = nullptr;
+    f(p); // x==0
+}
+```
+
+### Custom conversions
+
+You can specify how custom classes are converted from/to other types.
+
+- **conversion constructor**: other types to my custom class
+- **conversion operator**: my custom class to other types
+
+```cpp
+struct  A {A(int x){} };
+struct  B {
+            explicit B(int x {}
+            B(int x, float y) {}};
+
+int main(){
+    A a = 3;
+    B b = static_cast<B>(3);
+    b = 3; // error - explicit
+    b = B{3};
+    b = {3, 1.2};
+}
+```
+
+The operator ``TYPE()`` defines how a class is implicitly converted to a type.  
+The keyword ``explicit`` forces to use a ``static_cast`` for conversions.
+
+```cpp	
+#include <iostream>
+
+struct A { explicit operator float() {return 1.2; } };
+
+template<class T, class U>
+T f(U x) { return static_cast<T>(x); }
+
+int main() {
+    std::cout << f<float>( 10 ) << "\n";
+    std::cout << f<float>( A{} ) << "\n";
+}
+```
+
+### Enumerations
+
+Can be defined in two ways:
+
+- scoped enumerations: ``enum class name : type = { enumerators };``
+- unscoped enumerations: ``enum name : type = { enumerators };``
+- the underlying type must be an integral type (``int`` by default)
+- all values can be represented
+
+```cpp
+enum class MyEnum : char {
+    yes = 'y',
+    no = 'n',
+    other = 'o'
+    another // value is 1 more than the previous one
+};
+```
+
+### User defined literals
+
+User defined literals allow to define shortcuts to convert numerical or string values to other types. User defined literals always start with an underscore.
+
+```cpp
+#include <iostream>
+#include <cmath>
+
+constexpr long double operator "" _deg(long double x) { return x*M_PI/180.0; }
+
+int main() {
+    std::cout << 180.0_deg << "\n"; // --> 3.14159
+}
+```
