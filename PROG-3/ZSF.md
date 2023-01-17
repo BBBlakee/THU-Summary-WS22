@@ -1152,3 +1152,75 @@ int main() {
     std::cout << 180.0_deg << "\n"; // --> 3.14159
 }
 ```
+
+## Exception safety
+
+Separation of error detection and error handling.
+
+- **Low design level** code deteccts the error - ``resource not available``
+- **High design level** code handles the error - ``select another resource``
+
+Error handling:
+
+- **Error flagging**: can be ignored, possible ambiguity
+- **Return code**: can be ignored, subfunctions which does not propagate the error breaks the chain
+- **Error callbacks**: do not necessarily handle the error
+
+Like in Haskell or Rust, use return values containing either the normal return value, an error or nothing.
+
+Exceptions:
+
+- cannot be ignored
+- immediately stop an ongoing program part
+
+Levels of exception safety:
+
+| **No Exception safety**     | No guarantees made                               |
+|:---------------------------:|:------------------------------------------------:|
+| **Basic exception safety**  | No resource leaks; may have defined side effects |
+| **Strong exception safety** | No side effects (rollback)                       |
+| **No-throw guarantee**      | All errors are handled internally                |
+
+### Exceptions
+
+Syntax is similar to Java (without ``finally``).  
+Throw by value catch by reference.
+
+```cpp
+try { // GOOD EXAMPLE
+    // code...
+    if (a<b) throw MyException{a,b};
+}
+catch(MyException &e) {
+    // handle error
+}
+catch(YourException &e) {
+    // log error and rethrow
+    throw;
+}
+catch(...) {
+    // handle unexpected exception
+    // type
+}
+```
+
+Program termination handlers:
+
+- ``std::terminate()``
+  - is called whan an exception is not caught
+  - When an exception is rethrown outside a catch block
+  - When a "noexcept" function throws
+- ``std::unexpected()``
+  - is called when an exception violates the dynamic throw() specification of a function/method - **deprecated**
+- Handlers can be redefined
+- Standard handlers abort the program
+
+Costs of exceptions:
+
+- Depending on implementation
+- Most modern compilers:
+  - No throw = no costs
+  - In the throw case = unclear
+
+### Creating exception safe code
+
