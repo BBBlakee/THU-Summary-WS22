@@ -927,4 +927,94 @@ int main() { // which line does not compile?
 
 ### Iterators
 
-09 page 40
+Iterators are abstractions of pointers and are used to:
+
+- iterate over a container (array, list, etc.)
+- point to elements in a container
+- define ranges
+
+How do they work?
+
+- ``operator*`` and ``operator->`` are overloaded to mimic how dereferencing a pointer works
+- ``operator[]`` is overloaded to mimic array-like access
+- ``operator++`` and ``operator--`` are overloaded to mimic how incrementing a pointer works
+
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> v{1, 2, 3, 4, 5};
+    auto it = v.begin(); // points to the first element
+    std::cout << *it << "\n"; // 1
+    std::cout << it[2] << "\n"; // 3
+    ++it; // points to the second element
+    std::cout << *it << "\n"; // 2
+}
+```
+
+### Functors
+
+- Functors are objects that can be called like functions
+- The standard library makes use of such function objects
+
+```cpp
+std::plus<int> adder;
+std::cout << adder(1, 2) << "\n"; // 3
+```
+
+- Lambdas are modern replacements for functors
+- Functors objects override the ``operator()`` to mimic a function call
+  - Inlining makes this technique efficient
+  - They can contain a state
+  - They can be defined within a code block
+
+```cpp
+struct Adder{
+    int operator()(int a, int b){
+        return a + b;
+    }
+};
+int main(){
+    Adder adder;
+    return adder(1, 2); // 3
+}
+```
+
+C++ Lambdas are a shortcut to define certain kinds of functors.  
+**Syntax** ``[capture](parameters) mutable -> return-type {body}``
+
+- ``[capture]``: controls how the environment is captured
+- ``(parameters)``: the list of function parameters
+- ``mutable``: controls if the created function represents a constant object or a mutable one
+- ``-> return-type``: the return type of the function
+
+Lambda capture list:
+
+- ``[]``: capture nothing
+- ``[=]``: capture everything by value (copy)
+- ``[&]``: capture everything by reference (``this`` is always copied)
+- ``[&a, b, c=b*2,d]``: captures ``a`` by reference, ``b`` and ``d`` by copy and defines ``c`` as new attribute
+
+```cpp
+#include <iostream>
+
+int add(int a, int b) { return a + b; }
+int main() {
+    auto add3 = [](int a) { return add(a, 3); };
+    std::cout << add3(2) << "\n"; // 5
+    struct X {
+        int x = 0;
+        void f() { std::cout << x++ << "\n"; }
+        auto getF() { return [this]() { f(); }; }
+    } x;
+    auto f = x.getF();
+    auto g = [&x]() { x.f(); };
+    g(); // 0 - ruft x.f() auf --> x++
+    f(); // 1 - ruft x.f() auf --> x++
+    g(); // 2 - ruft x.f() auf --> x++
+    std::cout << x.x << "\n"; // 3
+}
+```
+
+## Conversions
