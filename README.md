@@ -8,7 +8,7 @@
 ### Progress
 
 - **[MAD](MAD/ZSF.md)**
-- **[Algortihmen und Datenstrukturen](ALGO/Zusammenfassung/)** (nearly finished)  
+- **[Algorithmen und Datenstrukturen](ALGO/Zusammenfassung/)** (nearly finished)  
 - **[Programmieren 3](PROG-3/)** (in progress)
 
 ### Releases
