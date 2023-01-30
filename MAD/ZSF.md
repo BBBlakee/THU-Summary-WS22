@@ -345,9 +345,14 @@ runOnUiThread(new Runnable() {
 - **What are the elements of a Notification?**
   - Title, text, icon, sound, vibration, light, priority, category, visibility, actions
 - **What are the basic steps to create a Notification?**
-  - TODO
+  - Get access to NotificationManager
+  - Create Notification Channel
+  - Prepare Notification Builder
+  - Create intent for action to be invoked when notification is tapped and add it to Notification Builder
+  - Show / update notification
+  - Remove notification
 - **Why do we need to sign apps with a certificate?**
-  - TODO
+  - To authenticate author for updates - not during initial installation
 - **Which malicious scenario does app signing prevent?**
   - TODO
 
@@ -359,8 +364,13 @@ runOnUiThread(new Runnable() {
   - Embedded SQLite Database
   - Content Provider
   - Paper.io
-- **How is file access different in Android different from standard Java?**
-  - TODO
+- **How is file access different in Android from standard Java?**
+  - Access to two different types of storage locations - internal and external
+  - External
+    - Requires special permission ```<uses-permission android:name=”android.permission.WRITE_EXTERNAL_STORAGE”/>```
+    - Does not have to be available
+  - Internal
+    - Access using Activity methods
 - **Where do you have to store files if you do not want other apps be able to
 access them?**
   - in the Internal Storage
@@ -375,12 +385,13 @@ Oracle or postgresql?**
   - It is the most widely deployed SQL database engine in the world
 - **To access an SQlite database we wrote a class extending SQLiteOpenHelper?
 What is its purpose?**
-  - TODO
+  - Configure initialization and upgrade of database
+  - Gives access
 - **What is a “Content Provider”? Name examples!**
   - It is a standard interface that allows you to access application-specific data
   - Contacts, Calendar, Media, SMS, Email, Browser, Downloads, Settings, Call Log
 - **Given some Content Provider code, can you explain?**
-  - TODO
+  - Slide 8.22
 
 ### Services / Audio
 
@@ -392,7 +403,8 @@ What is its purpose?**
   - JobService: automatically starts when conditions are met, runs in background, stops itself when done, runs independently
 - **If you use a service that is part of the operating system how can you access it?
 (Manager)**
-  - TODO
+  - You need the appropriate manager for this service (e.g. SensorManager for sensors)
+  - You can access service through manager with defined Context.XXX_SERVICE constants
 - **Explain (given) source code related to services!**
   - TODO
 - **If you want to play an audio file using MediaPlayer that is stored on the web,
@@ -435,7 +447,12 @@ each?**
 - **Which basic steps do you have to take if you want to track your location using
 the Google Location Services API? (basic description or explaining given
 source code)**
-  - TODO
+  - Require and check permission
+    - ACCESS_COARSE_LOCATION (ungenau) or ACCESS_FINE_LOCATION (genau)
+  - Obtain FusedLocationProviderClient
+  - Get last known location
+  - Slide 11.14
+
 
 ### Alternative approaches
 
@@ -449,9 +466,27 @@ approaches in general?**
     - Often additional layers of complexity
 - **What basic different types of approaches exist? Name one example each!
 What are pros/cons?**
-  - TODO
+  - Web- and Hybrid-Apps
+    - Ionic
+    - JQuery Mobile
+    - Pro
+      - TODO
+    - Con
+      - TODO
+  - Native apps
+    - React native
+    - Nativescript
+    - Flutter
+    - Pro
+      - TODO
+    - Con
+      - TODO
 - **What is a hybrid app?**
-  - TODO
+  - Web-Hybrid
+      - Consists out of a web view inside a wrapper to allow access to device interfaces
+      - Extended “WebView”
+  - Native-Hybrid
+    - Native App with parts developed using HTML and JS
 - **Using which language do you develop for Flutter / Ionic Framework?**
   - Iconic: HTML, CSS, JavaScript
   - Flutter: Dart, C(++/#), JavaScript
