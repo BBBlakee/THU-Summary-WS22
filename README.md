@@ -9,7 +9,7 @@
 
 - **[MAD](MAD/ZSF.md)**
 - **[Algorithmen und Datenstrukturen](ALGO/Zusammenfassung/)** (nearly finished)  
-- **[Programmieren 3](PROG-3/)** (in progress)
+- **[Programmieren 3](PROG-3/)** (leider mit ein paar Fehlern --> nicht zu empfehlen)
 
 ### Releases
 
